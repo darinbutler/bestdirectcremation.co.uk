@@ -63,7 +63,7 @@ export default function WhyBdc({
                   <span className="w-6 h-6 rounded-full bg-green flex items-center justify-center flex-shrink-0">
                     <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                   </span>
-                  <span><strong className="text-green">Cared for close to home</strong> — local FD&apos;s own mortuary, typically within 10–15 miles</span>
+                  <span><strong className="text-green">Cared for close to home</strong> — local funeral director&apos;s own mortuary, typically within 10–15 miles</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm md:text-base text-ink/85">
                   <span className="w-6 h-6 rounded-full bg-green flex items-center justify-center flex-shrink-0">
@@ -75,7 +75,7 @@ export default function WhyBdc({
                   <span className="w-6 h-6 rounded-full bg-green flex items-center justify-center flex-shrink-0">
                     <svg className="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                   </span>
-                  <span><strong className="text-green">Real local accountability</strong> — your FD&apos;s name and reputation are in your community</span>
+                  <span><strong className="text-green">Real local accountability</strong> — your funeral director&apos;s name and reputation are in your community</span>
                 </li>
               </ul>
 
@@ -111,7 +111,7 @@ export default function WhyBdc({
                   <span className="w-6 h-6 rounded-full bg-ink/15 flex items-center justify-center flex-shrink-0">
                     <svg className="w-3.5 h-3.5 text-ink/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                   </span>
-                  <span><strong>Operator&apos;s own staff or branch network</strong> — not an independent local FD</span>
+                  <span><strong>Operator&apos;s own staff or branch network</strong> — not an independent local funeral director</span>
                 </li>
                 <li className="flex items-start gap-3 text-sm md:text-base text-ink/75">
                   <span className="w-6 h-6 rounded-full bg-ink/15 flex items-center justify-center flex-shrink-0">
@@ -129,7 +129,7 @@ export default function WhyBdc({
                   <span className="w-6 h-6 rounded-full bg-ink/15 flex items-center justify-center flex-shrink-0">
                     <svg className="w-3.5 h-3.5 text-ink/60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                   </span>
-                  <span><strong>No local FD relationship</strong> in your community after the cremation</span>
+                  <span><strong>No local funeral director relationship</strong> in your community after the cremation</span>
                 </li>
               </ul>
             </div>

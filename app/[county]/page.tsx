@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { sanity } from '@/lib/sanity';
-import { allCountySlugsQuery, countyBySlugQuery } from '@/lib/queries';
+import { allCountySlugsQuery, countyBySlugQuery, nearbyCountiesQuery } from '@/lib/queries';
 import Hero from '@/components/Hero';
 import LongFormSections from '@/components/LongFormSections';
 import FAQ from '@/components/FAQ';
@@ -10,6 +10,8 @@ import ProcessSteps from '@/components/ProcessSteps';
 import WhyBdc from '@/components/WhyBdc';
 import PriceBlock from '@/components/PriceBlock';
 import CoveragePendingBanner from '@/components/CoveragePendingBanner';
+import RelatedCounties from '@/components/RelatedCounties';
+import LocalityResources from '@/components/LocalityResources';
 import Container from '@/components/Container';
 
 const PENDING_COUNTRIES = new Set(['Scotland', 'Northern Ireland']);
@@ -46,6 +48,10 @@ export default async function CountyPage({ params }: Props) {
   if (!c) notFound();
   const path = `/${c.slug}/`;
   const isPending = PENDING_COUNTRIES.has(c.country);
+  const neighbours = await sanity.fetch<Array<{ name: string; slug: string }>>(
+    nearbyCountiesQuery,
+    { country: c.country, excludeSlug: c.slug },
+  );
   return (
     <>
       <Hero
@@ -78,6 +84,8 @@ export default async function CountyPage({ params }: Props) {
         </section>
       )}
       <FAQ items={(c.faqs || []).map((f: any) => ({ question: f.question, answer: f.answer }))} title={`Frequently asked questions — ${c.name}`} />
+      <LocalityResources areaName={c.name} />
+      <RelatedCounties current={c.name} neighbours={neighbours} />
       <section className="bg-green text-cream">
         <Container className="py-14 md:py-20 text-center">
           <h2 className="font-serif text-section text-white mb-4">

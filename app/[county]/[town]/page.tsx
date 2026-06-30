@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import Link from 'next/link';
 import { sanity } from '@/lib/sanity';
-import { allTownPathsQuery, townByPathQuery } from '@/lib/queries';
+import { allTownPathsQuery, townByPathQuery, siblingTownsQuery } from '@/lib/queries';
 import Hero from '@/components/Hero';
 import LongFormSections from '@/components/LongFormSections';
 import FAQ from '@/components/FAQ';
@@ -9,6 +10,7 @@ import ProcessSteps from '@/components/ProcessSteps';
 import WhyBdc from '@/components/WhyBdc';
 import PriceBlock from '@/components/PriceBlock';
 import CoveragePendingBanner from '@/components/CoveragePendingBanner';
+import LocalityResources from '@/components/LocalityResources';
 import Container from '@/components/Container';
 
 const PENDING_COUNTRIES = new Set(['Scotland', 'Northern Ireland']);
@@ -44,6 +46,10 @@ export default async function TownPage({ params }: Props) {
   if (!t) notFound();
   const path = `/${t.county?.slug}/${t.slug}/`;
   const isPending = PENDING_COUNTRIES.has(t.county?.country);
+  const siblings = await sanity.fetch<Array<{ name: string; slug: string }>>(
+    siblingTownsQuery,
+    { countySlug: t.county?.slug, excludeSlug: t.slug },
+  );
   return (
     <>
       <Hero
@@ -67,6 +73,41 @@ export default async function TownPage({ params }: Props) {
         items={(t.faqs || []).map((f: any) => ({ question: f.question, answer: f.answer }))}
         title={`Frequently asked questions — ${t.name}`}
       />
+
+      <LocalityResources areaName={t.name} />
+
+      {/* Sibling towns + back to county — internal-link block */}
+      {(siblings.length > 0 || t.county?.slug) && (
+        <section className="bg-white border-y border-stone">
+          <Container className="py-12 md:py-16">
+            <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-3">More across {t.county?.name}</p>
+            <h2 className="font-serif text-section text-green mb-2">Direct cremation in nearby towns</h2>
+            <p className="text-ink/75 mb-6 max-w-2xl">
+              We arrange direct cremation through vetted local independent funeral directors in towns across {t.county?.name}.
+              Browse other towns we cover, or call us to confirm coverage for your exact area.
+            </p>
+            {siblings.length > 0 && (
+              <ul className="grid sm:grid-cols-2 md:grid-cols-3 gap-3 mb-6">
+                {siblings.map(s => (
+                  <li key={s.slug}>
+                    <Link href={`/${t.county?.slug}/${s.slug}/`}
+                          className="block bg-cream p-4 rounded-card shadow-card hover:shadow-lift hover:bg-white transition border border-transparent hover:border-gold">
+                      <p className="font-serif text-green">Direct cremation in {s.name}</p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <Link href={`/${t.county?.slug}/`} className="inline-flex items-center gap-2 text-green font-semibold hover:text-gold transition">
+              See all of {t.county?.name}
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </Link>
+          </Container>
+        </section>
+      )}
+
       <section className="bg-green text-cream">
         <Container className="py-14 md:py-20 text-center">
           <h2 className="font-serif text-section text-white mb-4">

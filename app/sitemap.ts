@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 import { sanity } from '@/lib/sanity';
 import { sitemapDataQuery } from '@/lib/queries';
 import { SITE } from '@/lib/site';
+import { GLOSSARY } from '@/lib/glossary';
 
 type Row = { slug?: string; county?: string; section?: string; _updatedAt?: string };
 
@@ -28,8 +29,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: SITE.url + '/providers/',        changeFrequency: 'weekly',  priority: 0.85, lastModified: now },
     { url: SITE.url + '/funeral-plans/',    changeFrequency: 'weekly',  priority: 0.85, lastModified: now },
     { url: SITE.url + '/help/',             changeFrequency: 'weekly',  priority: 0.8,  lastModified: now },
+    { url: SITE.url + '/glossary/',         changeFrequency: 'monthly', priority: 0.7,  lastModified: now },
     { url: SITE.url + '/about/',            changeFrequency: 'monthly', priority: 0.4,  lastModified: now },
     { url: SITE.url + '/contact/',          changeFrequency: 'monthly', priority: 0.5,  lastModified: now },
+    { url: SITE.url + '/partner-with-us/',  changeFrequency: 'monthly', priority: 0.4,  lastModified: now },
     { url: SITE.url + '/privacy-policy/',         changeFrequency: 'yearly', priority: 0.2, lastModified: now },
     { url: SITE.url + '/terms-and-conditions/',   changeFrequency: 'yearly', priority: 0.2, lastModified: now },
     { url: SITE.url + '/service-terms-and-conditions/', changeFrequency: 'yearly', priority: 0.2, lastModified: now },
@@ -71,5 +74,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }));
 
-  return [...baseUrls, ...countyUrls, ...townUrls, ...partnerUrls, ...articleUrls, ...genericUrls];
+  const glossaryUrls: MetadataRoute.Sitemap = GLOSSARY.map(t => ({
+    url: `${SITE.url}/glossary/${t.slug}/`,
+    lastModified: now,
+    changeFrequency: 'yearly',
+    priority: 0.5,
+  }));
+
+  return [...baseUrls, ...countyUrls, ...townUrls, ...partnerUrls, ...articleUrls, ...genericUrls, ...glossaryUrls];
 }

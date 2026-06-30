@@ -41,7 +41,7 @@ export default function PriceDifferential({ table }: { table: ComparisonTable })
             <ul className="space-y-1.5 text-sm text-cream/95 mb-6">
               <li className="flex items-start gap-2">
                 <svg className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-                Local independent FD delivery
+                Local independent funeral director delivery
               </li>
               <li className="flex items-start gap-2">
                 <svg className="w-4 h-4 text-gold mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>

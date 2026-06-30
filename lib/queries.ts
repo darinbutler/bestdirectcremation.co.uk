@@ -77,6 +77,55 @@ export const allCountiesForHubQuery = groq`
   }
 `;
 
+// All generic-term landers for /services/ hub
+export const allGenericTermsQuery = groq`
+  *[_type == "genericTerm" && defined(slug.current)] | order(title asc) {
+    title, "slug": slug.current, modifier, serviceNoun, intentMatch,
+  }
+`;
+
+// All funeral-plans cluster docs for /funeral-plans/ hub
+export const allFuneralPlansQuery = groq`
+  *[_type == "article" && section == "funeral-plans" && defined(slug.current)] | order(title asc) {
+    title, "slug": slug.current, excerpt, intent,
+  }
+`;
+
+// All help articles for /help/ hub
+export const allHelpArticlesQuery = groq`
+  *[_type == "article" && section == "help" && defined(slug.current)] | order(title asc) {
+    title, "slug": slug.current, excerpt, intent,
+  }
+`;
+
+// All comparison articles for /compare/ hub
+export const allCompareArticlesQuery = groq`
+  *[_type == "article" && section == "compare" && defined(slug.current)] | order(title asc) {
+    title, "slug": slug.current, excerpt,
+  }
+`;
+
+// Nearby counties in the same country — excludes self
+export const nearbyCountiesQuery = groq`
+  *[_type == "county" && country == $country && slug.current != $excludeSlug] | order(name asc) [0...4]{
+    name, "slug": slug.current,
+  }
+`;
+
+// Sibling towns within the same county — excludes self
+export const siblingTownsQuery = groq`
+  *[_type == "town" && county->slug.current == $countySlug && slug.current != $excludeSlug] | order(name asc) [0...6]{
+    name, "slug": slug.current,
+  }
+`;
+
+// Related articles in the same section (help OR funeral-plans), excludes self
+export const relatedArticlesQuery = groq`
+  *[_type == "article" && section == $section && slug.current != $excludeSlug] | order(_updatedAt desc) [0...3]{
+    title, "slug": slug.current, excerpt,
+  }
+`;
+
 // For sitemap.xml
 export const sitemapDataQuery = groq`{
   "counties": *[_type == "county" && defined(slug.current)]{ "slug": slug.current, lastReviewed, _updatedAt },

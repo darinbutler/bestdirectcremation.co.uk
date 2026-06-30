@@ -70,7 +70,7 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
       drawbacks: [
         'Cremation at a Pure-operated crematorium, not necessarily the nearest to home',
         'Your loved one is still moved a significant distance from where they died',
-        'No local FD relationship in your community',
+        'No local funeral director relationship in your community',
       ],
     },
     rows: [
@@ -100,7 +100,7 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
       benefits: [
         'NAFD or SAIF accredited',
         'Cremation at the closest local crematorium',
-        'Real local FD accountable to your community',
+        'Real local funeral director accountable to your community',
       ],
     },
     competitorModel: {
@@ -108,18 +108,18 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
       distance: 'Often transported significant distance from where they rest',
       careLocation: 'An Aura-affiliated facility, chosen by them',
       drawbacks: [
-        'Cared for at a regional Aura mortuary, not your local FD',
+        'Cared for at a regional Aura mortuary, not your local funeral director',
         'Cremation at an Aura-affiliated crematorium — not necessarily the nearest',
-        'No local FD relationship in your community',
+        'No local funeral director relationship in your community',
       ],
     },
     rows: [
       { feature: 'Direct cremation price', bdc: '£1,499 all-inclusive', competitor: '£1,495–£1,795 (regional)' },
       { feature: 'Priority Care fee', bdc: '£250 add-on (max £1,749)', competitor: 'Typically included' },
-      { feature: 'Service model', bdc: 'Local independent FD network', competitor: 'Regional infrastructure', bdcWin: true },
+      { feature: 'Service model', bdc: 'Local independent funeral director network', competitor: 'Regional infrastructure', bdcWin: true },
       { feature: 'Where loved one is cared for', bdc: 'Local FD\'s mortuary', competitor: 'Aura regional mortuary' },
       { feature: 'Crematorium used', bdc: 'Closest local crematorium', competitor: 'Aura-affiliated' },
-      { feature: 'FD accreditation', bdc: 'NAFD or SAIF', competitor: 'Internal standards' },
+      { feature: 'Funeral director accreditation', bdc: 'NAFD or SAIF', competitor: 'Internal standards' },
       { feature: '24/7 real-person phone', bdc: 'Yes — 0333 242 1405', competitor: 'Yes' },
       { feature: 'Coverage', bdc: 'Every county England + Wales', competitor: 'Most of England, parts of Wales' },
     ],
@@ -134,12 +134,12 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
       savings: 0, savingsContext: 'Similar headline — but Best Direct Cremation is independent, never part of a larger group',
     },
     bdcModel: {
-      headline: 'Independent — your local FD',
+      headline: 'Independent — your local funeral director',
       distance: 'Typically within 10–15 miles of home',
       careLocation: 'Local FD\'s own mortuary',
       benefits: [
         'Fully independent operator',
-        'NAFD or SAIF accredited partner FDs',
+        'NAFD or SAIF accredited partner funeral directors',
         'Closest local crematorium',
       ],
     },
@@ -150,7 +150,7 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
       drawbacks: [
         'Owned by Dignity Group (restructured 2022–23)',
         'Cremation at a Dignity-owned crematorium, not necessarily the nearest',
-        'Your loved one moved within the Dignity network, not to a local FD',
+        'Your loved one moved within the Dignity network, not to a local funeral director',
       ],
     },
     rows: [
@@ -159,7 +159,7 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
       { feature: 'Corporate structure', bdc: 'Independent', competitor: 'Owned by Dignity Group', bdcWin: true },
       { feature: 'Where loved one is cared for', bdc: 'Local FD\'s mortuary', competitor: 'Dignity Group infrastructure' },
       { feature: 'Crematorium used', bdc: 'Closest local crematorium', competitor: 'Often Dignity-owned crematoria' },
-      { feature: 'FD accreditation', bdc: 'NAFD or SAIF', competitor: 'Dignity internal' },
+      { feature: 'Funeral director accreditation', bdc: 'NAFD or SAIF', competitor: 'Dignity internal' },
       { feature: '24/7 real-person phone', bdc: 'Yes — 0333 242 1405', competitor: 'Yes' },
       { feature: 'Coverage', bdc: 'England + Wales', competitor: 'UK-wide' },
     ],
@@ -171,7 +171,7 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
     pricing: {
       bdcPrice: 1499, bdcLabel: '£1,499 all-inclusive',
       competitorPrice: 1995, competitorLabel: '£1,995',
-      savings: 496, savingsContext: 'Save £496 — local FD delivery versus Co-op branded branches',
+      savings: 496, savingsContext: 'Save £496 — local funeral director delivery versus Co-op branded branches',
     },
     bdcModel: {
       headline: 'Your local independent funeral director',
@@ -188,18 +188,18 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
       distance: 'Routed to a Co-op branch — possibly some distance away',
       careLocation: 'A Co-op branch mortuary, chosen by them',
       drawbacks: [
-        'Co-op employee, not an independent local FD',
+        'Co-op employee, not an independent local funeral director',
         'Branch may not be the nearest funeral director to home',
         'Pricing reflects national chain overhead',
       ],
     },
     rows: [
       { feature: 'Direct cremation price', bdc: '£1,499 all-inclusive', competitor: '£1,995', bdcWin: true },
-      { feature: 'Service model', bdc: 'Local independent FD network', competitor: 'Co-op-branded national branches' },
+      { feature: 'Service model', bdc: 'Local independent funeral director network', competitor: 'Co-op-branded national branches' },
       { feature: 'Where loved one is cared for', bdc: 'Local FD\'s mortuary near home', competitor: 'Co-op branch mortuary' },
       { feature: 'Crematorium used', bdc: 'Closest local crematorium', competitor: 'Closest local crematorium (Co-op does not own crematoria)' },
-      { feature: 'FD accreditation', bdc: 'NAFD or SAIF (every partner)', competitor: 'Co-op internal standards' },
-      { feature: 'Brand recognition', bdc: 'Newer brand, local FD reputation', competitor: 'Strong national brand' },
+      { feature: 'Funeral director accreditation', bdc: 'NAFD or SAIF (every partner)', competitor: 'Co-op internal standards' },
+      { feature: 'Brand recognition', bdc: 'Newer brand, local funeral director reputation', competitor: 'Strong national brand' },
       { feature: '24/7 real-person phone', bdc: 'Yes — 0333 242 1405', competitor: 'Yes' },
       { feature: 'Coverage', bdc: 'England + Wales', competitor: 'UK-wide' },
     ],
@@ -235,11 +235,11 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
     },
     rows: [
       { feature: 'Direct cremation price', bdc: '£1,499 all-inclusive', competitor: '£2,200', bdcWin: true },
-      { feature: 'Service model', bdc: 'Local independent FD network', competitor: 'Vertically integrated (FD + crematoria)' },
+      { feature: 'Service model', bdc: 'Local independent funeral director network', competitor: 'Vertically integrated (funeral director + crematoria)' },
       { feature: 'Where loved one is cared for', bdc: 'Local FD\'s mortuary near home', competitor: 'Dignity-owned infrastructure' },
       { feature: 'Crematorium used', bdc: 'Closest local crematorium', competitor: 'Almost always Dignity-owned' },
       { feature: 'Corporate context', bdc: 'Independent', competitor: 'Delisted from LSE 2023' },
-      { feature: 'FD accreditation', bdc: 'NAFD or SAIF', competitor: 'Dignity internal' },
+      { feature: 'Funeral director accreditation', bdc: 'NAFD or SAIF', competitor: 'Dignity internal' },
       { feature: '24/7 real-person phone', bdc: 'Yes — 0333 242 1405', competitor: 'Yes' },
       { feature: 'Coverage', bdc: 'England + Wales', competitor: 'UK-wide' },
     ],
@@ -251,7 +251,7 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
     pricing: {
       bdcPrice: 1499, bdcLabel: '£1,499 (nationwide)',
       competitorPrice: 1400, competitorLabel: '£1,300–£1,500',
-      savings: 0, savingsContext: 'Comparable headline — Best Direct Cremation offers consistent national pricing & vetted FDs',
+      savings: 0, savingsContext: 'Comparable headline — Best Direct Cremation offers consistent national pricing & vetted funeral directors',
     },
     bdcModel: {
       headline: 'Vetted local independent funeral directors',
@@ -264,7 +264,7 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
       ],
     },
     competitorModel: {
-      headline: 'Local FD partnerships',
+      headline: 'Local funeral director partnerships',
       distance: 'Local FD coverage',
       careLocation: 'Partner FD mortuary',
       drawbacks: [
@@ -276,9 +276,9 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
     rows: [
       { feature: 'Direct cremation price', bdc: '£1,499 all-inclusive (national)', competitor: '£1,300–£1,500 (regional)' },
       { feature: 'Priority Care fee', bdc: '£250 add-on (max £1,749)', competitor: 'Varies by region' },
-      { feature: 'Service model', bdc: 'Local independent FD network', competitor: 'Local FD partnerships' },
+      { feature: 'Service model', bdc: 'Local independent funeral director network', competitor: 'Local funeral director partnerships' },
       { feature: 'Pricing consistency', bdc: 'Same £1,499 nationwide', competitor: 'Varies by region', bdcWin: true },
-      { feature: 'FD accreditation', bdc: 'NAFD or SAIF', competitor: 'Varies by partner FD' },
+      { feature: 'Funeral director accreditation', bdc: 'NAFD or SAIF', competitor: 'Varies by partner funeral director' },
       { feature: '24/7 real-person phone', bdc: 'Yes — 0333 242 1405', competitor: 'Yes' },
       { feature: 'Coverage', bdc: 'Every county England + Wales', competitor: 'Regional, growing' },
     ],
@@ -314,10 +314,10 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
     },
     rows: [
       { feature: 'Direct cremation price', bdc: '£1,499 all-inclusive', competitor: '£1,500–£1,800', bdcWin: true },
-      { feature: 'Service model', bdc: 'Local independent FD network', competitor: 'Owns crematorium infrastructure' },
+      { feature: 'Service model', bdc: 'Local independent funeral director network', competitor: 'Owns crematorium infrastructure' },
       { feature: 'Where loved one is cared for', bdc: 'Local FD\'s mortuary near home', competitor: 'Memoria-affiliated facility' },
       { feature: 'Crematorium used', bdc: 'Closest local crematorium', competitor: 'Memoria-owned crematorium' },
-      { feature: 'FD accreditation', bdc: 'NAFD or SAIF', competitor: 'Internal Memoria standards' },
+      { feature: 'Funeral director accreditation', bdc: 'NAFD or SAIF', competitor: 'Internal Memoria standards' },
       { feature: 'Pricing consistency', bdc: 'Same £1,499 nationwide', competitor: 'Regional variation' },
       { feature: '24/7 real-person phone', bdc: 'Yes — 0333 242 1405', competitor: 'Yes' },
       { feature: 'Coverage', bdc: 'Every county England + Wales', competitor: 'Where Memoria has crematoria' },

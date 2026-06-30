@@ -69,14 +69,16 @@ export const FOOTER_SECTIONS: NavSection[] = [
       { label: 'Probate & estate',                 href: '/help/probate-and-estate/' },
       { label: 'Writing a will',                   href: '/help/writing-a-will/' },
       { label: 'See all help articles →',     href: '/help/' },
+      { label: 'Funeral terms glossary',           href: '/glossary/' },
     ],
   },
 ];
 
 // Bottom-row links (legal + company)
 export const COMPANY_LINKS: NavLink[] = [
-  { label: 'About us',   href: '/about/' },
-  { label: 'Contact us', href: '/contact/' },
+  { label: 'About us',         href: '/about/' },
+  { label: 'Contact us',       href: '/contact/' },
+  { label: 'Partner with us',  href: '/partner-with-us/' },
 ];
 
 export const LEGAL_LINKS: NavLink[] = [
