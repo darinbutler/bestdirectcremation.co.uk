@@ -65,7 +65,7 @@ export default async function TownPage({ params }: Props) {
           </p>
         </Container>
       )}
-      <LongFormSections sections={t.longFormSections || []} />
+      <LongFormSections sections={t.longFormSections || []} areaName={t.name} />
       <ProcessSteps />
       <WhyBdc />
       <PriceBlock />

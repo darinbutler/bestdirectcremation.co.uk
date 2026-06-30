@@ -60,7 +60,7 @@ export default async function CountyPage({ params }: Props) {
         subtitle={`Always delivered locally by handpicked independent funeral directors serving ${c.name}. Call us 24 hours a day to arrange a Best Direct Cremation.`}
       />
       {isPending && <CoveragePendingBanner areaName={c.name} />}
-      <LongFormSections sections={c.longFormSections || []} />
+      <LongFormSections sections={c.longFormSections || []} areaName={c.name} />
       <WhyBdc />
       <ProcessSteps />
       <PriceBlock />
