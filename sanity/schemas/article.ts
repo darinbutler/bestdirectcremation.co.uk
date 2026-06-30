@@ -21,6 +21,7 @@ export default defineType({
       options: { list: [
         { title: 'Help & Guidance — /help/[slug]/', value: 'help' },
         { title: 'Funeral Plans cluster — /funeral-plans/[slug]/', value: 'funeral-plans' },
+        { title: 'Competitor comparison — /compare/[slug]/', value: 'compare' },
       ]},
       initialValue: 'help',
       validation: (R) => R.required(),
