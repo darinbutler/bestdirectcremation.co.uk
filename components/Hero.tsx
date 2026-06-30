@@ -35,11 +35,11 @@ export default function Hero({
         </div>
       )}
       <Container className="relative z-10 py-5 md:py-10 lg:py-16">
-        <div className="max-w-xl bg-cream/95 backdrop-blur-sm rounded-2xl p-5 md:p-9 shadow-lift">
+        <div className="max-w-xl md:max-w-2xl bg-cream/95 backdrop-blur-sm rounded-2xl p-5 md:p-9 shadow-lift">
           {eyebrow && (
-            <p className="text-xs md:text-sm font-semibold text-green mb-2 md:mb-3 tracking-wide">{eyebrow}</p>
+            <p className="text-base md:text-lg font-bold text-green mb-3 md:mb-4">{eyebrow}</p>
           )}
-          <h1 className="font-serif italic font-medium text-gold leading-[1.08] text-[clamp(1.5rem,5.2vw,2.75rem)] mb-3 md:mb-4">
+          <h1 className="font-serif font-normal text-gold leading-[1.1] tracking-tight text-[clamp(1.5rem,5.2vw,3rem)] mb-3 md:mb-4">
             {title}
           </h1>
           {subtitle && (

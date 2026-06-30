@@ -36,7 +36,7 @@ export default function Home() {
     <>
       <Hero
         eyebrow="Best Direct Cremation"
-        title="Simple, dignified direct cremation — done properly"
+        title="Simple, dignified direct cremation - done properly"
         subtitle="Always delivered locally by our handpicked, independent BEST Funeral Directors."
       />
       <UspGrid />
