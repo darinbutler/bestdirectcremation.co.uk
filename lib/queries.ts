@@ -98,6 +98,30 @@ export const allHelpArticlesQuery = groq`
   }
 `;
 
+// Cross-section search — counties, towns, articles, generics in one query.
+// $q is a case-insensitive substring matcher; matches title, slug, excerpt.
+// Glossary terms are searched separately on the client (they live in lib/glossary.ts, not Sanity).
+export const searchQuery = groq`{
+  "counties": *[_type == "county" && (name match $qstar || slug.current match $qstar)] | order(name asc) [0...10] {
+    "type": "county", name, "slug": slug.current, country,
+  },
+  "towns": *[_type == "town" && (name match $qstar || slug.current match $qstar)] | order(name asc) [0...10] {
+    "type": "town", name, "slug": slug.current, "county": county->slug.current,
+  },
+  "help": *[_type == "article" && section == "help" && (title match $qstar || excerpt match $qstar)] | order(title asc) [0...8] {
+    "type": "help", title, "slug": slug.current, excerpt,
+  },
+  "funeralPlans": *[_type == "article" && section == "funeral-plans" && (title match $qstar || excerpt match $qstar)] | order(title asc) [0...8] {
+    "type": "fp", title, "slug": slug.current, excerpt,
+  },
+  "comparisons": *[_type == "article" && section == "compare" && (title match $qstar || excerpt match $qstar)] | order(title asc) [0...8] {
+    "type": "compare", title, "slug": slug.current, excerpt,
+  },
+  "generics": *[_type == "genericTerm" && (title match $qstar || serviceNoun match $qstar)] | order(title asc) [0...8] {
+    "type": "generic", title, "slug": slug.current,
+  },
+}`;
+
 // All comparison articles for /compare/ hub
 export const allCompareArticlesQuery = groq`
   *[_type == "article" && section == "compare" && defined(slug.current)] | order(title asc) {
