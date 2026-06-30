@@ -1,8 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { sanity } from '@/lib/sanity';
-import { sitemapDataQuery } from '@/lib/queries';
+import { sitemapDataQuery, allCrematoriaQuery } from '@/lib/queries';
 import { SITE } from '@/lib/site';
 import { GLOSSARY } from '@/lib/glossary';
+import { CountyCrematoriumGroup, deduplicate } from '@/lib/crematoria';
 
 type Row = { slug?: string; county?: string; section?: string; _updatedAt?: string };
 
@@ -30,6 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: SITE.url + '/funeral-plans/',    changeFrequency: 'weekly',  priority: 0.85, lastModified: now },
     { url: SITE.url + '/help/',             changeFrequency: 'weekly',  priority: 0.8,  lastModified: now },
     { url: SITE.url + '/glossary/',         changeFrequency: 'monthly', priority: 0.7,  lastModified: now },
+    { url: SITE.url + '/crematoria/',       changeFrequency: 'monthly', priority: 0.7,  lastModified: now },
     { url: SITE.url + '/resources/',        changeFrequency: 'monthly', priority: 0.6,  lastModified: now },
     { url: SITE.url + '/resources/what-to-do-when-someone-dies-checklist/', changeFrequency: 'yearly', priority: 0.6, lastModified: now },
     { url: SITE.url + '/resources/funeral-planning-checklist/', changeFrequency: 'yearly', priority: 0.5, lastModified: now },
@@ -85,5 +87,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.5,
   }));
 
-  return [...baseUrls, ...countyUrls, ...townUrls, ...partnerUrls, ...articleUrls, ...genericUrls, ...glossaryUrls];
+  // Crematorium directory — generated from Apify-enriched county docs
+  const crematoriaGroups: CountyCrematoriumGroup[] = await sanity.fetch(allCrematoriaQuery);
+  const crematoriaMap = deduplicate(crematoriaGroups);
+  const crematoriaUrls: MetadataRoute.Sitemap = [...crematoriaMap.values()].map(c => ({
+    url: `${SITE.url}/crematoria/${c.slug}/`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }));
+
+  return [...baseUrls, ...countyUrls, ...townUrls, ...partnerUrls, ...articleUrls, ...genericUrls, ...glossaryUrls, ...crematoriaUrls];
 }

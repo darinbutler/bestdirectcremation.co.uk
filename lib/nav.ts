@@ -34,6 +34,7 @@ export const FOOTER_SECTIONS: NavSection[] = [
     title: 'Locations',
     links: [
       { label: 'All UK coverage',                  href: '/coverage/' },
+      { label: 'UK crematoria directory',          href: '/crematoria/' },
       { label: 'England',                          href: '/coverage/#england' },
       { label: 'Wales',                            href: '/coverage/#wales' },
       { label: 'Direct cremation London',          href: '/london/' },

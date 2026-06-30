@@ -98,6 +98,20 @@ export const allHelpArticlesQuery = groq`
   }
 `;
 
+// All crematoria across all county docs — for /crematoria/ hub + per-crematorium pages.
+// Crematoria are stored as inline objects on county documents (Apify enrichment fills them).
+// This query flattens the array-of-arrays and lets the page layer dedupe by name.
+export const allCrematoriaQuery = groq`
+  *[_type == "county" && defined(crematoria) && count(crematoria) > 0] {
+    "countyName": name,
+    "countySlug": slug.current,
+    "country": country,
+    crematoria[]{
+      name, address, postcode, latitude, longitude, website,
+    },
+  }
+`;
+
 // Cross-section search — counties, towns, articles, generics in one query.
 // $q is a case-insensitive substring matcher; matches title, slug, excerpt.
 // Glossary terms are searched separately on the client (they live in lib/glossary.ts, not Sanity).
