@@ -9,8 +9,12 @@ import RelatedArticles from '@/components/RelatedArticles';
 import GlossaryReferences from '@/components/GlossaryReferences';
 import PhoneCTA from '@/components/PhoneCTA';
 import CostCalculatorCTA from '@/components/CostCalculatorCTA';
+import ArticleTOC from '@/components/ArticleTOC';
+import CountUp from '@/components/CountUp';
 import JsonLd from '@/components/JsonLd';
 import { PortableText } from '@portabletext/react';
+import { makePortableTextComponents } from '@/components/portableTextComponents';
+import { extractHeadings } from '@/lib/portable-text-utils';
 import { articleSchema, breadcrumbSchema, faqPageSchema, howToSchema, jsonLdString } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 
@@ -124,21 +128,43 @@ export default async function HelpArticle({ params }: Props) {
       {/* Cost calculator card on cost-themed pillar articles */}
       {COST_INTENT_SLUGS.has(params.slug) && <CostCalculatorCTA variant="card" />}
 
+      {/* 2-col article layout with sticky TOC sidebar */}
       <section className="bg-white">
-        <Container className="py-12 md:py-16 max-w-prose-wide">
-          <article className="prose prose-lg max-w-none
-                              prose-headings:font-serif prose-headings:text-green
-                              prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-5 prose-h2:pb-3 prose-h2:border-b-2 prose-h2:border-gold/30 prose-h2:relative prose-h2:pl-5
-                              prose-h2:before:absolute prose-h2:before:left-0 prose-h2:before:top-1 prose-h2:before:bottom-3 prose-h2:before:w-1 prose-h2:before:bg-gold
-                              prose-h3:text-xl prose-h3:text-green prose-h3:mt-8 prose-h3:mb-3
-                              prose-p:text-ink/85 prose-p:leading-relaxed prose-p:my-5
-                              prose-a:text-gold prose-a:no-underline hover:prose-a:underline
-                              prose-strong:text-ink prose-strong:font-bold
-                              prose-ul:my-5 prose-li:my-1.5 prose-li:text-ink/85
-                              prose-blockquote:border-l-4 prose-blockquote:border-gold prose-blockquote:bg-cream/40 prose-blockquote:py-3 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:text-ink/85">
-            {a.body && <PortableText value={a.body} />}
-          </article>
-        </Container>
+        <div className="max-w-[1280px] mx-auto px-4 md:px-8 py-12 md:py-16">
+          <div className="lg:grid lg:grid-cols-[1fr_300px] lg:gap-12 xl:gap-16">
+
+            <article className="prose prose-lg max-w-none
+                                prose-headings:font-serif prose-headings:text-green prose-headings:leading-tight
+                                prose-h2:text-2xl md:prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-5 prose-h2:pb-3 prose-h2:border-b-2 prose-h2:border-gold/30 prose-h2:relative prose-h2:pl-5
+                                prose-h2:before:absolute prose-h2:before:left-0 prose-h2:before:top-1 prose-h2:before:bottom-3 prose-h2:before:w-1 prose-h2:before:bg-gold
+                                prose-h3:text-xl prose-h3:text-green prose-h3:mt-8 prose-h3:mb-3
+                                prose-p:text-ink/85 prose-p:leading-relaxed prose-p:my-5
+                                prose-a:text-gold prose-a:no-underline hover:prose-a:underline
+                                prose-strong:text-ink prose-strong:font-bold
+                                prose-ul:my-5 prose-li:my-1.5 prose-li:text-ink/85
+                                prose-blockquote:border-l-4 prose-blockquote:border-gold prose-blockquote:bg-cream/40 prose-blockquote:py-3 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:text-ink/85">
+              {a.body && <PortableText value={a.body} components={makePortableTextComponents()} />}
+            </article>
+
+            {/* Sticky sidebar with TOC + price callout */}
+            <aside className="hidden lg:block">
+              <div className="sticky top-24 space-y-6">
+                <ArticleTOC headings={extractHeadings(a.body)} />
+
+                <div className="bg-cream rounded-2xl p-6 border border-stone">
+                  <p className="text-xs uppercase tracking-wider text-gold font-bold mb-2">Need to arrange today?</p>
+                  <p className="font-serif text-3xl text-green leading-none mb-1">
+                    <CountUp value={1499} />
+                  </p>
+                  <p className="text-xs text-ink/70 mb-4">all-inclusive · max £1,749 with Priority Care</p>
+                  <PhoneCTA size="md" variant="green" />
+                  <p className="text-xs italic text-green mt-2 font-medium">{SITE.promiseSubtext}</p>
+                </div>
+              </div>
+            </aside>
+
+          </div>
+        </div>
       </section>
 
       {a.faqs && a.faqs.length > 0 && (

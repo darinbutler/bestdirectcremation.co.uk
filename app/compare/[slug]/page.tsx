@@ -14,6 +14,7 @@ import LocalVsCentralised from '@/components/LocalVsCentralised';
 import ComparisonTable from '@/components/ComparisonTable';
 import CostCalculatorCTA from '@/components/CostCalculatorCTA';
 import JsonLd from '@/components/JsonLd';
+import { makePortableTextComponents } from '@/components/portableTextComponents';
 import { articleSchema, breadcrumbSchema, faqPageSchema, jsonLdString } from '@/lib/seo';
 import { SITE } from '@/lib/site';
 import { IMG } from '@/lib/images';
@@ -151,7 +152,7 @@ export default async function ComparisonPage({ params }: Props) {
                                 prose-strong:text-ink prose-strong:font-bold
                                 prose-ul:my-5 prose-li:my-1.5 prose-li:text-ink/85
                                 prose-blockquote:border-l-4 prose-blockquote:border-gold prose-blockquote:bg-cream/40 prose-blockquote:py-3 prose-blockquote:px-6 prose-blockquote:not-italic prose-blockquote:text-ink/85">
-              <PortableText value={a.body} />
+              <PortableText value={a.body} components={makePortableTextComponents()} />
             </article>
 
             {/* Sticky sidebar — quick facts, CTA, other comparisons */}
