@@ -2,6 +2,11 @@ import Image from 'next/image';
 import { ReactNode } from 'react';
 import Container from './Container';
 
+/**
+ * The bread-and-butter section type on the live BDC site.
+ * Image on one side, text on the other. Alternates left/right
+ * on consecutive sections for visual rhythm.
+ */
 export default function ImageTextSection({
   eyebrow, title, children, image, imageAlt,
   imagePosition = 'left',

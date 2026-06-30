@@ -1,5 +1,8 @@
 import Container from './Container';
 
+/**
+ * The 4 USP bullets shown immediately below the hero — matching the live BDC site.
+ */
 const USPS = [
   { title: 'Cared for locally and never driven miles away',  icon: '📍' },
   { title: 'Delivered by a proper independent funeral director', icon: '🤝' },

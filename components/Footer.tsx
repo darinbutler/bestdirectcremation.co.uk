@@ -12,7 +12,10 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-10 mb-12">
           <div className="md:col-span-2">
             <Image src={IMG.logoWhite} alt={`${SITE.name} logo`} width={280} height={56} className="h-12 w-auto mb-4" />
-            <p className="text-sm text-cream/70 leading-relaxed max-w-md mb-4">Simple, dignified direct cremation. Always delivered locally by our handpicked, independent BEST Funeral Directors. {SITE.strapline}</p>
+            <p className="text-sm text-cream/70 leading-relaxed max-w-md mb-4">
+              Simple, dignified direct cremation. Always delivered locally by our handpicked,
+              independent BEST Funeral Directors. {SITE.strapline}
+            </p>
             <div className="flex gap-3 items-center">
               <a href="http://www.facebook.com/bestfuneral" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="inline-flex items-center justify-center w-9 h-9 rounded-full bg-cream/15 hover:bg-gold transition">
                 <svg className="w-4 h-4 text-cream" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
@@ -22,6 +25,7 @@ export default function Footer() {
               </a>
             </div>
           </div>
+
           <div>
             <p className="font-serif text-white mb-3 text-sm uppercase tracking-wider">Pages</p>
             <ul className="space-y-2 text-sm">
@@ -33,6 +37,7 @@ export default function Footer() {
               <li><a href="https://bestdirectcremation.co.uk/wp-content/uploads/2026/05/Standardised-Price-List-2.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-white">CMA Standardised Price List</a></li>
             </ul>
           </div>
+
           <div>
             <p className="font-serif text-white mb-3 text-sm uppercase tracking-wider">Get in touch</p>
             <ul className="space-y-2 text-sm">
@@ -47,8 +52,13 @@ export default function Footer() {
             </ul>
           </div>
         </div>
+
         <div className="border-t border-white/15 pt-8 text-xs text-cream/60 leading-relaxed space-y-3">
-          <p>{SITE.name} works with a UK network of NAFD or SAIF accredited independent funeral directors. Every cremation is delivered locally, never centralised. Our pricing is transparent — {SITE.priceLabel} all-inclusive, with a maximum of {SITE.priceCeiling} where a Priority Care collection is required.</p>
+          <p>
+            {SITE.name} works with a UK network of NAFD or SAIF accredited independent funeral directors. Every cremation is
+            delivered locally, never centralised. Our pricing is transparent — {SITE.priceLabel} all-inclusive,
+            with a maximum of {SITE.priceCeiling} where a Priority Care collection is required.
+          </p>
           <p className="pt-2">© {year} {SITE.publisher}. All rights reserved.</p>
         </div>
       </Container>
