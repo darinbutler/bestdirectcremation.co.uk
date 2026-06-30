@@ -176,7 +176,7 @@ export default function Home() {
       <FAQ items={HOMEPAGE_FAQS.map(f => ({ question: f.question, answer: f.answer }))} />
 
       {/* Final CTA strip */}
-      <section className="bg-navy text-cream">
+      <section className="bg-green text-cream">
         <Container className="py-14 md:py-20 text-center">
           <h2 className="font-serif text-section text-white mb-4 max-w-2xl mx-auto">
             Speak to a real person, day or night

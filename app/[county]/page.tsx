@@ -9,7 +9,6 @@ import FAQ from '@/components/FAQ';
 import ProcessSteps from '@/components/ProcessSteps';
 import ComparisonStrip from '@/components/ComparisonStrip';
 import PriceBlock from '@/components/PriceBlock';
-import CoveragePendingBanner from '@/components/CoveragePendingBanner';
 import Container from '@/components/Container';
 import PhoneCTA from '@/components/PhoneCTA';
 import JsonLd from '@/components/JsonLd';
@@ -42,16 +41,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function CountyPage({ params }: Props) {
   const c = await sanity.fetch(countyBySlugQuery, { slug: params.county });
   if (!c) notFound();
-  const isPending = c.coverageStatus === 'coming-soon';
   const path = `/${c.slug}/`;
   return (
     <>
       <Hero
         eyebrow={`${c.country}${c.region ? ` · ${c.region}` : ''}`}
-        title={<>Direct Cremation in <span className="text-gold">{c.name}</span></>}
-        subtitle={`Always delivered locally by handpicked independent funeral directors serving ${c.name}.`}
+        title={`Direct Cremation in ${c.name}`}
+        subtitle={`Always delivered locally by handpicked independent funeral directors serving ${c.name}. Call us 24 hours a day to arrange a Best Direct Cremation.`}
       />
-      {isPending && <CoveragePendingBanner areaName={c.name} />}
       <LongFormSections sections={c.longFormSections || []} />
       <ProcessSteps />
       <ComparisonStrip />
@@ -60,18 +57,15 @@ export default async function CountyPage({ params }: Props) {
         <section className="bg-white border-y border-stone">
           <Container className="py-14 md:py-20">
             <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-3">Towns &amp; cities in {c.name}</p>
-            <h2 className="font-serif text-section text-navy mb-8">Direct cremation across {c.name}</h2>
+            <h2 className="font-serif text-section text-green mb-8">Direct cremation across {c.name}</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {c.cities.map((city: any) => (
                 <Link
                   key={city._id}
                   href={`/${c.slug}/${city.slug}/`}
-                  className="block bg-cream p-4 rounded-card shadow-card hover:shadow-lift transition"
+                  className="block bg-cream p-4 rounded-card shadow-card hover:shadow-lift hover:bg-white transition border border-transparent hover:border-gold"
                 >
-                  <p className="font-serif text-navy">{city.name}</p>
-                  <p className="text-xs text-ink/60 mt-1">
-                    {city.coverageStatus === 'live' ? '✓ Live coverage' : '⏳ Coming soon'}
-                  </p>
+                  <p className="font-serif text-green">Direct cremation in {city.name}</p>
                 </Link>
               ))}
             </div>
@@ -79,7 +73,7 @@ export default async function CountyPage({ params }: Props) {
         </section>
       )}
       <FAQ items={(c.faqs || []).map((f: any) => ({ question: f.question, answer: f.answer }))} title={`Frequently asked questions — ${c.name}`} />
-      <section className="bg-navy text-cream">
+      <section className="bg-green text-cream">
         <Container className="py-14 md:py-20 text-center">
           <h2 className="font-serif text-section text-white mb-4">
             Speak to a real person about a cremation in {c.name}

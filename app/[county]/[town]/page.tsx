@@ -8,7 +8,6 @@ import FAQ from '@/components/FAQ';
 import ProcessSteps from '@/components/ProcessSteps';
 import ComparisonStrip from '@/components/ComparisonStrip';
 import PriceBlock from '@/components/PriceBlock';
-import CoveragePendingBanner from '@/components/CoveragePendingBanner';
 import Container from '@/components/Container';
 import PhoneCTA from '@/components/PhoneCTA';
 import JsonLd from '@/components/JsonLd';
@@ -40,16 +39,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function TownPage({ params }: Props) {
   const t = await sanity.fetch(townByPathQuery, { county: params.county, town: params.town });
   if (!t) notFound();
-  const isPending = t.coverageStatus === 'coming-soon';
   const path = `/${t.county?.slug}/${t.slug}/`;
   return (
     <>
       <Hero
         eyebrow={`${t.county?.name}${t.population ? ` · pop ${t.population.toLocaleString()}` : ''}`}
-        title={<>Direct Cremation in <span className="text-gold">{t.name}</span></>}
-        subtitle={`Local, dignified direct cremation for families in ${t.name}, ${t.county?.name}.`}
+        title={`Direct Cremation in ${t.name}`}
+        subtitle={`Local, dignified direct cremation for families in ${t.name}, ${t.county?.name}. Call us 24 hours a day.`}
       />
-      {isPending && <CoveragePendingBanner areaName={t.name} />}
       {t.uniqueLocalAngle && (
         <Container className="py-10 max-w-prose-wide">
           <p className="text-ink/85 text-base leading-relaxed italic border-l-4 border-gold pl-4">
@@ -65,7 +62,7 @@ export default async function TownPage({ params }: Props) {
         items={(t.faqs || []).map((f: any) => ({ question: f.question, answer: f.answer }))}
         title={`Frequently asked questions — ${t.name}`}
       />
-      <section className="bg-navy text-cream">
+      <section className="bg-green text-cream">
         <Container className="py-14 md:py-20 text-center">
           <h2 className="font-serif text-section text-white mb-4">
             Speak to a real person about a cremation in {t.name}
