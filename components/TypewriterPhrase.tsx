@@ -3,23 +3,25 @@
 import { useEffect, useState, useRef } from 'react';
 
 /**
- * Typewriter rotator — types out a sequence of short value-prop phrases,
- * pauses, deletes, and types the next one.
+ * Subtle typewriter rotator for short value-prop phrases.
  *
- * Tasteful pacing for a sensitive context:
- *   - 70ms per character typing
- *   - 40ms per character deleting
- *   - 2.5s pause when phrase is fully shown
+ * Designed for use under or beside the headline price (£1,499) — NOT on
+ * the main page H1 (which would cause wrapping issues on long phrases).
  *
- * SSR-friendly: first phrase renders statically on the server, animation
- * starts after mount. Respects prefers-reduced-motion (stays static).
+ * Calm pacing for a sensitive context. Respects prefers-reduced-motion.
  */
 export default function TypewriterPhrase({
   phrases,
   className = '',
+  typeSpeed = 110,
+  deleteSpeed = 70,
+  pauseMs = 4000,
 }: {
   phrases: string[];
   className?: string;
+  typeSpeed?: number;
+  deleteSpeed?: number;
+  pauseMs?: number;
 }) {
   const initialPhrase = phrases[0] || '';
   const [text, setText] = useState(initialPhrase);
@@ -27,16 +29,15 @@ export default function TypewriterPhrase({
   const [phase, setPhase] = useState<'static' | 'deleting' | 'typing'>('static');
   const reducedMotion = useRef(false);
 
-  // Detect reduced-motion preference once on mount
   useEffect(() => {
     if (typeof window === 'undefined') return;
     reducedMotion.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reducedMotion.current) return;
 
-    // After 3s on the initial static phrase, start deleting
-    const t = setTimeout(() => setPhase('deleting'), 3000);
+    // Longer initial hold so the static first phrase reads naturally
+    const t = setTimeout(() => setPhase('deleting'), pauseMs + 1500);
     return () => clearTimeout(t);
-  }, []);
+  }, [pauseMs]);
 
   useEffect(() => {
     if (phase === 'static' || reducedMotion.current) return;
@@ -48,25 +49,25 @@ export default function TypewriterPhrase({
         setPhase('typing');
         return;
       }
-      const t = setTimeout(() => setText(text.slice(0, -1)), 40);
+      const t = setTimeout(() => setText(text.slice(0, -1)), deleteSpeed);
       return () => clearTimeout(t);
     }
 
     if (phase === 'typing') {
       const target = phrases[phraseIdx];
       if (text === target) {
-        const t = setTimeout(() => setPhase('deleting'), 2500);
+        const t = setTimeout(() => setPhase('deleting'), pauseMs);
         return () => clearTimeout(t);
       }
-      const t = setTimeout(() => setText(target.slice(0, text.length + 1)), 70);
+      const t = setTimeout(() => setText(target.slice(0, text.length + 1)), typeSpeed);
       return () => clearTimeout(t);
     }
-  }, [text, phase, phraseIdx, phrases]);
+  }, [text, phase, phraseIdx, phrases, typeSpeed, deleteSpeed, pauseMs]);
 
   return (
     <span className={`inline ${className}`} aria-live="polite" aria-atomic="true">
       {text}
-      <span className="inline-block w-[3px] h-[0.85em] bg-current ml-1 align-middle animate-blink-caret motion-reduce:hidden" aria-hidden="true" />
+      <span className="inline-block w-[2px] h-[0.85em] bg-current ml-0.5 align-middle animate-blink-caret motion-reduce:hidden" aria-hidden="true" />
     </span>
   );
 }

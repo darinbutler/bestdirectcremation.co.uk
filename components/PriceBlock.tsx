@@ -1,6 +1,7 @@
 import Container from './Container';
 import PhoneCTA from './PhoneCTA';
 import CountUp from './CountUp';
+import TypewriterPhrase from './TypewriterPhrase';
 import { SITE } from '@/lib/site';
 
 const INCLUDED = [
@@ -32,8 +33,17 @@ export default function PriceBlock() {
               Direct cremation from
             </h2>
             {/* Animated price — counts up from 0 on scroll-in */}
-            <p className="font-serif font-medium text-green leading-none mb-4 text-[clamp(3rem,7vw,5rem)]">
+            <p className="font-serif font-medium text-green leading-none mb-2 text-[clamp(3rem,7vw,5rem)]">
               <CountUp value={1499} />
+            </p>
+            {/* Slow typewriter rotates short value props under the price */}
+            <p className="text-gold font-semibold text-base md:text-lg mb-5 min-h-[1.6em]">
+              <TypewriterPhrase phrases={[
+                'all-inclusive',
+                'no hidden fees',
+                'delivered locally',
+                'real person, 24/7',
+              ]} />
             </p>
             <p className="text-ink/80 text-sm leading-relaxed mb-5">
               A simple, affordable funeral that saves more than £3,000 compared to the average traditional UK funeral

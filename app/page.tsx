@@ -8,7 +8,6 @@ import UkCoverageMap from '@/components/UkCoverageMap';
 import FAQ from '@/components/FAQ';
 import Container from '@/components/Container';
 import PhoneCTA from '@/components/PhoneCTA';
-import TypewriterPhrase from '@/components/TypewriterPhrase';
 import JsonLd from '@/components/JsonLd';
 import { faqPageSchema, jsonLdString, serviceSchema } from '@/lib/seo';
 import { IMG } from '@/lib/images';
@@ -37,12 +36,7 @@ export default function Home() {
     <>
       <Hero
         eyebrow="Best Direct Cremation"
-        title={<>Simple, dignified direct cremation — <TypewriterPhrase phrases={[
-          'done properly',
-          'delivered locally',
-          'for £1,499',
-          'by your local funeral director',
-        ]} /></>}
+        title="Simple, dignified direct cremation - done properly"
         subtitle="Always delivered locally by our handpicked, independent BEST Funeral Directors."
       />
       <UspGrid />
