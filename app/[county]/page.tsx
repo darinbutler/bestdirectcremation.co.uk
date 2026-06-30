@@ -9,7 +9,10 @@ import FAQ from '@/components/FAQ';
 import ProcessSteps from '@/components/ProcessSteps';
 import ComparisonStrip from '@/components/ComparisonStrip';
 import PriceBlock from '@/components/PriceBlock';
+import CoveragePendingBanner from '@/components/CoveragePendingBanner';
 import Container from '@/components/Container';
+
+const PENDING_COUNTRIES = new Set(['Scotland', 'Northern Ireland']);
 import PhoneCTA from '@/components/PhoneCTA';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbSchema, faqPageSchema, funeralHomeSchema, jsonLdString, serviceSchema } from '@/lib/seo';
@@ -42,6 +45,7 @@ export default async function CountyPage({ params }: Props) {
   const c = await sanity.fetch(countyBySlugQuery, { slug: params.county });
   if (!c) notFound();
   const path = `/${c.slug}/`;
+  const isPending = PENDING_COUNTRIES.has(c.country);
   return (
     <>
       <Hero
@@ -49,6 +53,7 @@ export default async function CountyPage({ params }: Props) {
         title={`Direct Cremation in ${c.name}`}
         subtitle={`Always delivered locally by handpicked independent funeral directors serving ${c.name}. Call us 24 hours a day to arrange a Best Direct Cremation.`}
       />
+      {isPending && <CoveragePendingBanner areaName={c.name} />}
       <LongFormSections sections={c.longFormSections || []} />
       <ProcessSteps />
       <ComparisonStrip />

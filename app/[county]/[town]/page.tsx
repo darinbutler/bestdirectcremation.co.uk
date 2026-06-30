@@ -8,7 +8,10 @@ import FAQ from '@/components/FAQ';
 import ProcessSteps from '@/components/ProcessSteps';
 import ComparisonStrip from '@/components/ComparisonStrip';
 import PriceBlock from '@/components/PriceBlock';
+import CoveragePendingBanner from '@/components/CoveragePendingBanner';
 import Container from '@/components/Container';
+
+const PENDING_COUNTRIES = new Set(['Scotland', 'Northern Ireland']);
 import PhoneCTA from '@/components/PhoneCTA';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbSchema, faqPageSchema, funeralHomeSchema, jsonLdString, serviceSchema } from '@/lib/seo';
@@ -40,6 +43,7 @@ export default async function TownPage({ params }: Props) {
   const t = await sanity.fetch(townByPathQuery, { county: params.county, town: params.town });
   if (!t) notFound();
   const path = `/${t.county?.slug}/${t.slug}/`;
+  const isPending = PENDING_COUNTRIES.has(t.county?.country);
   return (
     <>
       <Hero
@@ -47,6 +51,7 @@ export default async function TownPage({ params }: Props) {
         title={`Direct Cremation in ${t.name}`}
         subtitle={`Local, dignified direct cremation for families in ${t.name}, ${t.county?.name}. Call us 24 hours a day.`}
       />
+      {isPending && <CoveragePendingBanner areaName={t.name} />}
       {t.uniqueLocalAngle && (
         <Container className="py-10 max-w-prose-wide">
           <p className="text-ink/85 text-base leading-relaxed italic border-l-4 border-gold pl-4">
