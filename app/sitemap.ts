@@ -22,6 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: SITE.url + '/direct-cremation/', changeFrequency: 'weekly',  priority: 0.95, lastModified: now },
     { url: SITE.url + '/coverage/',         changeFrequency: 'weekly',  priority: 0.95, lastModified: now },
     { url: SITE.url + '/cost/',             changeFrequency: 'weekly',  priority: 0.9,  lastModified: now },
+    { url: SITE.url + '/cost-calculator/',  changeFrequency: 'weekly',  priority: 0.9,  lastModified: now },
     { url: SITE.url + '/near-me/',          changeFrequency: 'weekly',  priority: 0.9,  lastModified: now },
     { url: SITE.url + '/compare/',          changeFrequency: 'weekly',  priority: 0.9,  lastModified: now },
     { url: SITE.url + '/providers/',        changeFrequency: 'weekly',  priority: 0.85, lastModified: now },

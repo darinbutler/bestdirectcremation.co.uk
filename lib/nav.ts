@@ -24,6 +24,7 @@ export const FOOTER_SECTIONS: NavSection[] = [
       { label: 'How direct cremation works',      href: '/help/how-direct-cremation-works/' },
       { label: 'What’s included',            href: '/help/whats-included/' },
       { label: 'Direct cremation cost',           href: '/cost/' },
+      { label: 'Cost calculator',                 href: '/cost-calculator/' },
       { label: 'Direct cremation near me',        href: '/near-me/' },
       { label: 'Compare us vs others',            href: '/compare/' },
       { label: 'Partner funeral directors',       href: '/providers/' },
