@@ -3,11 +3,12 @@ import { notFound } from 'next/navigation';
 import { PortableText } from '@portabletext/react';
 import { sanity } from '@/lib/sanity';
 import { articleBySlugQuery, allArticleSlugsQuery } from '@/lib/queries';
-import Hero from '@/components/Hero';
 import FAQ from '@/components/FAQ';
 import Container from '@/components/Container';
 import PhoneCTA from '@/components/PhoneCTA';
 import TrustSignals from '@/components/TrustSignals';
+import PriceDifferential from '@/components/PriceDifferential';
+import LocalVsCentralised from '@/components/LocalVsCentralised';
 import ComparisonTable from '@/components/ComparisonTable';
 import JsonLd from '@/components/JsonLd';
 import { articleSchema, breadcrumbSchema, faqPageSchema, jsonLdString } from '@/lib/seo';
@@ -43,24 +44,77 @@ export default async function ComparisonPage({ params }: Props) {
 
   return (
     <>
-      <Hero
-        eyebrow="Comparison"
-        title={a.title}
-        subtitle={a.excerpt}
-      />
+      {/* HERO — wider, compact, with price callout */}
+      <section className="bg-cream border-b border-stone">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-8 py-10 md:py-14 lg:py-16">
+          <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-12 items-center">
+            <div>
+              <p className="text-sm font-semibold text-green mb-3 uppercase tracking-wide">
+                Comparison · Best Direct Cremation vs {table?.competitorName || 'the competition'}
+              </p>
+              <h1 className="font-serif text-green text-[clamp(1.75rem,4.2vw,3rem)] leading-[1.1] mb-4 tracking-tight">
+                {a.title}
+              </h1>
+              {a.excerpt && (
+                <p className="text-base md:text-lg text-ink/80 leading-relaxed mb-6 max-w-xl">
+                  {a.excerpt}
+                </p>
+              )}
+              <PhoneCTA size="md" variant="green" />
+              <p className="text-xs italic text-green font-medium mt-2">{SITE.promiseSubtext}</p>
+            </div>
 
-      {/* Trust signal strip — above the long-form content */}
+            {/* Price callout on the right — visible immediately */}
+            {table && (
+              <div className="bg-white rounded-2xl p-6 md:p-7 shadow-lift border-2 border-gold/40">
+                <p className="text-xs uppercase tracking-wider text-gold font-bold mb-2">At a glance</p>
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wider text-green font-bold mb-0.5">BDC</p>
+                    <p className="font-serif text-3xl md:text-4xl text-green">£{table.pricing.bdcPrice.toLocaleString()}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] uppercase tracking-wider text-ink/55 font-bold mb-0.5">{table.competitorName}</p>
+                    <p className="font-serif text-3xl md:text-4xl text-ink/65">£{table.pricing.competitorPrice.toLocaleString()}</p>
+                  </div>
+                </div>
+                {table.pricing.savings > 0 && (
+                  <div className="bg-gold/10 border border-gold/30 rounded-lg px-3 py-2 text-center">
+                    <p className="text-xs uppercase tracking-wider text-gold-dark font-bold">
+                      You save £{table.pricing.savings.toLocaleString()}
+                    </p>
+                  </div>
+                )}
+                <p className="text-[11px] text-ink/55 mt-3 italic text-center">
+                  Pricing accurate as of June 2026
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
       <TrustSignals />
 
-      {/* At-a-glance table — the headline differences in one scan */}
+      {/* PRICE DIFFERENTIAL — big bold pricing block */}
+      {table && <PriceDifferential table={table} />}
+
+      {/* LOCAL FD vs CENTRALISED — the structural differentiator */}
+      {table && <LocalVsCentralised table={table} />}
+
+      {/* AT-A-GLANCE TABLE — every feature side-by-side */}
       {table && <ComparisonTable table={table} />}
 
-      {/* Full long-form body — for users who want the detail */}
-      <Container className="py-12 md:py-16 max-w-prose-wide">
-        <article className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-green prose-h2:text-2xl md:prose-h2:text-3xl prose-h3:text-xl prose-a:text-gold hover:prose-a:text-gold-dark prose-strong:text-ink">
-          <PortableText value={a.body} />
-        </article>
-      </Container>
+      {/* LONG-FORM ARTICLE — wider container, still readable prose width */}
+      <section className="bg-white">
+        <div className="max-w-[1280px] mx-auto px-4 md:px-8 py-12 md:py-16">
+          <div className="max-w-prose-wide mx-auto">
+            <article className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-green prose-h2:text-2xl md:prose-h2:text-3xl prose-h3:text-xl prose-a:text-gold hover:prose-a:text-gold-dark prose-strong:text-ink">
+              <PortableText value={a.body} />
+            </article>
+          </div>
+        </div>
+      </section>
 
       <FAQ
         items={(a.faqs || []).map((f: any) => ({ question: f.question, answer: f.answer }))}
