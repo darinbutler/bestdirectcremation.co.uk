@@ -69,7 +69,13 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    // Long-form prose styling — drives all the gold-bar H2s, blockquote treatment,
+    // paragraph rhythm and link colours on help articles, FP cluster pages,
+    // comparison long-form, glossary entries, cost calculator content,
+    // legal pages, etc. Without this, `prose-h2:` and friends have no effect.
+    require('@tailwindcss/typography'),
+  ],
 };
 
 export default config;
