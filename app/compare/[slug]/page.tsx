@@ -12,6 +12,7 @@ import TrustSignals from '@/components/TrustSignals';
 import PriceDifferential from '@/components/PriceDifferential';
 import LocalVsCentralised from '@/components/LocalVsCentralised';
 import ComparisonTable from '@/components/ComparisonTable';
+import CostCalculatorCTA from '@/components/CostCalculatorCTA';
 import JsonLd from '@/components/JsonLd';
 import { articleSchema, breadcrumbSchema, faqPageSchema, jsonLdString } from '@/lib/seo';
 import { SITE } from '@/lib/site';
@@ -188,6 +189,9 @@ export default async function ComparisonPage({ params }: Props) {
                   <p className="text-xs italic text-cream/85 mt-2">{SITE.promiseSubtext}</p>
                 </div>
 
+                {/* Cost calculator tile */}
+                <CostCalculatorCTA variant="tile" />
+
                 {/* Other comparisons */}
                 <div className="bg-white rounded-2xl p-6 border border-stone">
                   <p className="text-xs uppercase tracking-wider text-gold font-bold mb-3">Compare with another provider</p>
@@ -195,7 +199,7 @@ export default async function ComparisonPage({ params }: Props) {
                     {others.map(o => (
                       <li key={o.slug}>
                         <Link href={`/compare/${o.slug}/`} className="text-green hover:text-gold inline-flex items-center gap-1 group">
-                          BDC vs {o.name}
+                          Best Direct Cremation vs {o.name}
                           <svg className="w-3 h-3 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
                           </svg>
@@ -209,6 +213,21 @@ export default async function ComparisonPage({ params }: Props) {
                           <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
                         </svg>
                       </Link>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Read more — curated pillar links */}
+                <div className="bg-white rounded-2xl p-6 border border-stone">
+                  <p className="text-xs uppercase tracking-wider text-gold font-bold mb-3">Read more</p>
+                  <ul className="space-y-2 text-sm">
+                    <li><Link href="/help/what-is-direct-cremation/" className="text-green hover:text-gold">What is a direct cremation?</Link></li>
+                    <li><Link href="/help/cost-of-a-funeral/" className="text-green hover:text-gold">Cost of a funeral UK 2026</Link></li>
+                    <li><Link href="/help/cremation-vs-burial/" className="text-green hover:text-gold">Cremation vs burial</Link></li>
+                    <li><Link href="/help/how-direct-cremation-works/" className="text-green hover:text-gold">How direct cremation works</Link></li>
+                    <li><Link href="/help/choosing-a-funeral-director/" className="text-green hover:text-gold">Choosing a funeral director</Link></li>
+                    <li className="pt-2 mt-2 border-t border-stone">
+                      <Link href="/glossary/" className="text-gold font-semibold hover:text-gold-dark">Funeral terms glossary →</Link>
                     </li>
                   </ul>
                 </div>

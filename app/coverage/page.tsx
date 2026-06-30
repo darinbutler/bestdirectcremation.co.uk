@@ -84,6 +84,38 @@ export default async function CoveragePage() {
           </section>
         )}
 
+        {/* Other resources — fixes coverage hub being a dead-end */}
+        <section className="mt-12 pt-12 border-t border-stone">
+          <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-3">Other resources</p>
+          <h2 className="font-serif text-2xl md:text-3xl text-green mb-6">Helpful guidance for every UK family</h2>
+          <ul className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            <li><Link href="/cost-calculator/" className="block bg-cream p-5 rounded-card shadow-card hover:shadow-lift hover:bg-white transition border border-transparent hover:border-gold">
+              <p className="font-serif text-green">Funeral cost calculator</p>
+              <p className="text-xs text-ink/65 mt-1">See your saving in 30 seconds</p>
+            </Link></li>
+            <li><Link href="/compare/" className="block bg-cream p-5 rounded-card shadow-card hover:shadow-lift hover:bg-white transition border border-transparent hover:border-gold">
+              <p className="font-serif text-green">Compare UK providers</p>
+              <p className="text-xs text-ink/65 mt-1">vs Pure, Co-op, Dignity & more</p>
+            </Link></li>
+            <li><Link href="/help/what-to-do-when-someone-dies/" className="block bg-cream p-5 rounded-card shadow-card hover:shadow-lift hover:bg-white transition border border-transparent hover:border-gold">
+              <p className="font-serif text-green">What to do when someone dies</p>
+              <p className="text-xs text-ink/65 mt-1">Step-by-step UK practical guide</p>
+            </Link></li>
+            <li><Link href="/help/cost-of-a-funeral/" className="block bg-cream p-5 rounded-card shadow-card hover:shadow-lift hover:bg-white transition border border-transparent hover:border-gold">
+              <p className="font-serif text-green">Cost of a funeral UK 2026</p>
+              <p className="text-xs text-ink/65 mt-1">Full pricing breakdown + DWP help</p>
+            </Link></li>
+            <li><Link href="/services/" className="block bg-cream p-5 rounded-card shadow-card hover:shadow-lift hover:bg-white transition border border-transparent hover:border-gold">
+              <p className="font-serif text-green">Direct cremation services guide</p>
+              <p className="text-xs text-ink/65 mt-1">34 in-depth plain-English guides</p>
+            </Link></li>
+            <li><Link href="/glossary/" className="block bg-cream p-5 rounded-card shadow-card hover:shadow-lift hover:bg-white transition border border-transparent hover:border-gold">
+              <p className="font-serif text-green">Funeral terms glossary</p>
+              <p className="text-xs text-ink/65 mt-1">124+ UK funeral terms explained</p>
+            </Link></li>
+          </ul>
+        </section>
+
         {/* Always-on national coverage CTA */}
         <section className="bg-green text-cream rounded-2xl px-6 md:px-10 py-10 md:py-12 text-center mt-8">
           <h2 className="font-serif text-2xl md:text-3xl text-white mb-3">Don&apos;t see your specific town?</h2>
