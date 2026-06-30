@@ -27,21 +27,23 @@ export default function Hero({
             alt=""
             fill
             priority
-            className="object-cover object-center"
+            // Mobile crops aggressively to where the people are (right of frame);
+            // desktop centres the full crematorium scene.
+            className="object-cover object-[68%_center] md:object-center"
             sizes="100vw"
           />
         </div>
       )}
-      <Container className="relative z-10 py-8 md:py-12 lg:py-16">
-        <div className="max-w-xl bg-cream/95 backdrop-blur-sm rounded-2xl p-6 md:p-9 shadow-lift">
+      <Container className="relative z-10 py-5 md:py-10 lg:py-16">
+        <div className="max-w-xl bg-cream/95 backdrop-blur-sm rounded-2xl p-5 md:p-9 shadow-lift">
           {eyebrow && (
-            <p className="text-sm font-semibold text-green mb-3">{eyebrow}</p>
+            <p className="text-xs md:text-sm font-semibold text-green mb-2 md:mb-3 tracking-wide">{eyebrow}</p>
           )}
-          <h1 className="font-serif italic font-medium text-gold leading-[1.05] text-[clamp(1.75rem,4.2vw,3rem)] mb-4">
+          <h1 className="font-serif italic font-medium text-gold leading-[1.08] text-[clamp(1.5rem,5.2vw,2.75rem)] mb-3 md:mb-4">
             {title}
           </h1>
           {subtitle && (
-            <p className="text-sm md:text-base text-ink/85 leading-relaxed mb-5 max-w-lg">
+            <p className="text-sm md:text-base text-ink/85 leading-relaxed mb-4 md:mb-5 max-w-lg">
               {subtitle}
             </p>
           )}

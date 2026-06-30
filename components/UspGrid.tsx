@@ -39,14 +39,15 @@ const USPS: { title: string; icon: ReactNode }[] = [
 export default function UspGrid() {
   return (
     <section className="bg-white">
-      <Container className="py-7 md:py-10">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+      <Container className="py-6 md:py-10">
+        {/* 2x2 grid on mobile so all 4 USPs peek above the fold, 4-col from lg */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 gap-y-5 md:gap-6 lg:gap-8">
           {USPS.map((u, i) => (
             <div key={i} className="text-center">
-              <div className="mx-auto mb-3 w-12 h-12 rounded-full border-2 border-gold flex items-center justify-center text-gold">
-                <span className="w-6 h-6 block">{u.icon}</span>
+              <div className="mx-auto mb-2 md:mb-3 w-10 h-10 md:w-12 md:h-12 rounded-full border-2 border-gold flex items-center justify-center text-gold">
+                <span className="w-5 h-5 md:w-6 md:h-6 block">{u.icon}</span>
               </div>
-              <h3 className="font-serif text-base text-green leading-snug max-w-[14rem] mx-auto">
+              <h3 className="font-serif text-sm md:text-base text-green leading-snug max-w-[14rem] mx-auto">
                 {u.title}
               </h3>
             </div>
