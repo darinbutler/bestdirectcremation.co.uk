@@ -12,13 +12,14 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Brand
-        gold: { DEFAULT: '#A77A2F', dark: '#8B6526', light: '#C49B5C' },
-        navy: { DEFAULT: '#1F2A44', dark: '#15203A' },
-        sage: { 50: '#F4F7F4', 100: '#E8EDE9', 700: '#4D6657', 800: '#3F564A', 900: '#3B5447' },
-        cream: { DEFAULT: '#FAF6EE', warm: '#F4ECDA' },
-        stone: '#EFEAE0',
-        ink: '#1A1A1A',
+        // Brand — sampled directly from live bestdirectcremation.co.uk CSS
+        green: { DEFAULT: '#074727', dark: '#053A1F', light: '#0B5C32' },     // primary CTA + headings
+        gold:  { DEFAULT: '#C5A576', dark: '#A6864F', light: '#D9BE93' },     // accent + italic headlines
+        navy:  { DEFAULT: '#1F2A44', dark: '#15203A' },                       // (legacy — only used for deep dark surfaces)
+        sage:  { 50: '#F4F7F4', 100: '#E8EDE9', 700: '#4D6657', 800: '#3F564A', 900: '#3B5447' },
+        cream: { DEFAULT: '#F5F2E9', warm: '#FFFDF6' },                       // hero overlay + section bg
+        stone: '#E6E0D0',
+        ink:   '#1A1A1A',
       },
       fontFamily: {
         serif: ['var(--font-literata)', 'Georgia', 'serif'],

@@ -31,6 +31,9 @@ export const IMG = {
   // UK coverage map graphic
   ukCoverageMap: `${WP}/2026/02/DC-Coverage-Map.jpg`,
 
+  // Hero background — the big funeral directors at crematorium photo
+  heroBackground: `${WP}/2026/01/Header-background.jpg`,
+
   // Brand
   logo:          `${WP}/2026/01/cropped-BEST_Direct_Cremation_RGB.png`,
   logoWhite:     `${WP}/2024/12/BEST_Direct_Cremation_WHITE.png`,

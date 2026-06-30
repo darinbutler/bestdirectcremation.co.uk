@@ -36,7 +36,7 @@ export default function Home() {
     <>
       <Hero
         eyebrow="Best Direct Cremation"
-        title={<>Simple, dignified direct cremation — <span className="text-gold">done properly</span></>}
+        title="Simple, dignified direct cremation — done properly"
         subtitle="Always delivered locally by our handpicked, independent BEST Funeral Directors."
       />
       <UspGrid />
@@ -69,7 +69,7 @@ export default function Home() {
           <strong>Best Direct Cremation for {SITE.priceLabel}.</strong> Clear pricing. No hidden extras. Local
           professional care.
         </p>
-        <p className="mt-6"><PhoneCTA size="lg" variant="gold" showSubtext /></p>
+        <p className="mt-6"><PhoneCTA size="lg" variant="green" showSubtext /></p>
       </ImageTextSection>
 
       {/* Section 2 — What is direct cremation? */}

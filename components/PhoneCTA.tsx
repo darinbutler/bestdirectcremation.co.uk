@@ -1,21 +1,22 @@
 import { SITE } from '@/lib/site';
 
-type Variant = 'gold' | 'invert' | 'sage';
+type Variant = 'green' | 'gold' | 'invert' | 'sage';
 type Size = 'sm' | 'md' | 'lg';
 
 const variantStyles: Record<Variant, string> = {
+  green:  'bg-green text-white hover:bg-green-dark',  // brand primary CTA
   gold:   'bg-gold text-white hover:bg-gold-dark',
-  invert: 'bg-white text-navy hover:bg-cream',
+  invert: 'bg-white text-green hover:bg-cream',
   sage:   'bg-sage-700 text-white hover:bg-sage-800',
 };
 const sizeStyles: Record<Size, string> = {
-  sm: 'text-sm px-4 py-2 rounded-md gap-2',
-  md: 'text-base px-5 py-2.5 rounded-md gap-2',
-  lg: 'text-lg md:text-xl px-7 py-3.5 rounded-lg gap-3 shadow-lift',
+  sm: 'text-sm px-4 py-2 rounded-full gap-2',
+  md: 'text-base px-6 py-3 rounded-full gap-2',
+  lg: 'text-lg md:text-xl px-8 py-4 rounded-full gap-3 shadow-lift',
 };
 
 export default function PhoneCTA({
-  size = 'md', variant = 'gold', showSubtext = false, pulse = false,
+  size = 'md', variant = 'green', showSubtext = false, pulse = false,
 }: { size?: Size; variant?: Variant; showSubtext?: boolean; pulse?: boolean }) {
   return (
     <div className="inline-flex flex-col items-start gap-2">
@@ -30,7 +31,7 @@ export default function PhoneCTA({
         {SITE.phone}
       </a>
       {showSubtext && (
-        <span className="text-xs md:text-sm italic text-ink/70 px-1">{SITE.promiseSubtext}</span>
+        <span className="text-xs md:text-sm italic text-green/80 px-1 font-medium">{SITE.promiseSubtext}</span>
       )}
     </div>
   );
