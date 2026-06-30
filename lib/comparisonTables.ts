@@ -131,7 +131,7 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
     pricing: {
       bdcPrice: 1499, bdcLabel: '£1,499 all-inclusive',
       competitorPrice: 1495, competitorLabel: '£1,495–£1,595',
-      savings: 0, savingsContext: 'Similar headline — but BDC is independent, never part of a larger group',
+      savings: 0, savingsContext: 'Similar headline — but Best Direct Cremation is independent, never part of a larger group',
     },
     bdcModel: {
       headline: 'Independent — your local FD',
@@ -251,7 +251,7 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
     pricing: {
       bdcPrice: 1499, bdcLabel: '£1,499 (nationwide)',
       competitorPrice: 1400, competitorLabel: '£1,300–£1,500',
-      savings: 0, savingsContext: 'Comparable headline — BDC offers consistent national pricing & vetted FDs',
+      savings: 0, savingsContext: 'Comparable headline — Best Direct Cremation offers consistent national pricing & vetted FDs',
     },
     bdcModel: {
       headline: 'Vetted local independent funeral directors',
@@ -260,7 +260,7 @@ export const COMPARISON_TABLES: Record<string, ComparisonTable> = {
       benefits: [
         'NAFD or SAIF accredited',
         'Same £1,499 price nationwide',
-        'Quality vetted by BDC',
+        'Quality vetted by Best Direct Cremation',
       ],
     },
     competitorModel: {

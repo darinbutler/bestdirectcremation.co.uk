@@ -79,7 +79,7 @@ export default async function ComparisonPage({ params }: Props) {
           <div className="grid lg:grid-cols-[1.5fr_1fr] gap-8 lg:gap-12 items-center">
             <div className="bg-cream/85 backdrop-blur-sm rounded-2xl p-6 md:p-8 lg:p-10 max-w-2xl shadow-lift">
               <p className="text-xs md:text-sm font-bold text-green mb-3 uppercase tracking-wider">
-                Comparison · Best Direct Cremation vs {table?.competitorName || 'the competition'}
+                Provider comparison
               </p>
               <h1 className="font-serif text-green text-[clamp(1.75rem,4.2vw,3rem)] leading-[1.1] mb-4 tracking-tight">
                 {a.title}
@@ -98,7 +98,7 @@ export default async function ComparisonPage({ params }: Props) {
                 <p className="text-xs uppercase tracking-wider text-gold font-bold mb-2">At a glance</p>
                 <div className="grid grid-cols-2 gap-3 mb-4">
                   <div>
-                    <p className="text-[10px] uppercase tracking-wider text-green font-bold mb-0.5">BDC</p>
+                    <p className="text-[10px] uppercase tracking-wider text-green font-bold mb-0.5">Best Direct Cremation</p>
                     <p className="font-serif text-3xl md:text-4xl text-green">£{table.pricing.bdcPrice.toLocaleString()}</p>
                   </div>
                   <div>
@@ -131,10 +131,10 @@ export default async function ComparisonPage({ params }: Props) {
       <section className="bg-white">
         <div className="max-w-[1280px] mx-auto px-4 md:px-8 py-12 md:py-16">
           <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-3">
-            The detail
+            In depth
           </p>
           <h2 className="font-serif text-2xl md:text-4xl text-green mb-10 max-w-3xl leading-tight">
-            Best Direct Cremation vs {table?.competitorName} — the full story
+            Best Direct Cremation vs {table?.competitorName}
           </h2>
 
           <div className="lg:grid lg:grid-cols-[1fr_320px] lg:gap-12 xl:gap-16">
@@ -163,7 +163,7 @@ export default async function ComparisonPage({ params }: Props) {
                     <p className="text-xs uppercase tracking-wider text-gold font-bold mb-3">Quick facts</p>
                     <dl className="space-y-3 text-sm">
                       <div>
-                        <dt className="text-ink/55 text-xs uppercase tracking-wider mb-0.5">BDC price</dt>
+                        <dt className="text-ink/55 text-xs uppercase tracking-wider mb-0.5">Best Direct Cremation</dt>
                         <dd className="font-serif text-green text-xl">£{table.pricing.bdcPrice.toLocaleString()}</dd>
                       </div>
                       <div>
