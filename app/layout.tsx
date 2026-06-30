@@ -14,7 +14,7 @@ const cabin    = Cabin({ subsets: ['latin'], variable: '--font-cabin', display: 
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#1F2A44',
+  themeColor: '#074727', // BDC brand green — matches CTA + header pill
 };
 
 export const metadata: Metadata = {
@@ -39,6 +39,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-GB" className={`${literata.variable} ${cabin.variable}`}>
+      <head>
+        {/* Preconnect to the WordPress image origin so the homepage hero photo loads faster */}
+        <link rel="preconnect" href="https://bestdirectcremation.co.uk" />
+        <link rel="dns-prefetch" href="https://bestdirectcremation.co.uk" />
+        {/* Preconnect to the Sanity image CDN for the rest of the imagery */}
+        <link rel="preconnect" href="https://cdn.sanity.io" />
+        <link rel="dns-prefetch" href="https://cdn.sanity.io" />
+      </head>
       <body className="font-sans">
         <Header />
         <main>{children}</main>

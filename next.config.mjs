@@ -13,7 +13,19 @@ const nextConfig = {
       { protocol: 'https', hostname: 'cdn.sanity.io' },
       { protocol: 'https', hostname: 'bestdirectcremation.co.uk' },
     ],
+    // Serve AVIF where supported, WebP as fallback — smaller files, faster LCP
+    formats: ['image/avif', 'image/webp'],
+    // Reasonable device + image size breakpoints for our layouts
+    deviceSizes: [640, 750, 828, 1080, 1200, 1280, 1920],
+    imageSizes: [16, 32, 64, 128, 256, 384, 512],
+    // 30-day cache on the optimised images
+    minimumCacheTTL: 2592000,
   },
+  // Smaller production runtime + better page load
+  poweredByHeader: false,
+  compress: true,
+  // Treat trailing slashes consistently — we link with trailing slashes throughout
+  trailingSlash: true,
   async redirects() {
     return [
       // WordPress legacy URLs that change slug in the rebuild

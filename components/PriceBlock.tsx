@@ -2,6 +2,7 @@ import Container from './Container';
 import PhoneCTA from './PhoneCTA';
 import CountUp from './CountUp';
 import TypewriterPhrase from './TypewriterPhrase';
+import CostCalculatorCTA from './CostCalculatorCTA';
 import { SITE } from '@/lib/site';
 
 const INCLUDED = [
@@ -49,9 +50,12 @@ export default function PriceBlock() {
               A simple, affordable funeral that saves more than £3,000 compared to the average traditional UK funeral
               ({SITE.sunlife2026}, SunLife Cost of Dying Report 2026).
             </p>
-            <p className="text-ink/80 text-sm leading-relaxed mb-6">
+            <p className="text-ink/80 text-sm leading-relaxed mb-4">
               Clear pricing. No hidden extras. Local professional care. Maximum {SITE.priceCeiling} with Priority Care.
             </p>
+            <div className="mb-6">
+              <CostCalculatorCTA variant="inline" />
+            </div>
             <PhoneCTA size="md" variant="green" pulse showSubtext />
           </div>
           <div className="lg:col-span-2 grid sm:grid-cols-2 gap-8">

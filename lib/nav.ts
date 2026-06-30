@@ -70,6 +70,7 @@ export const FOOTER_SECTIONS: NavSection[] = [
       { label: 'Writing a will',                   href: '/help/writing-a-will/' },
       { label: 'See all help articles →',     href: '/help/' },
       { label: 'Funeral terms glossary',           href: '/glossary/' },
+      { label: 'Printable checklists (PDF)',       href: '/resources/' },
     ],
   },
 ];
