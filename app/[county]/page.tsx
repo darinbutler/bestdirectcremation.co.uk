@@ -7,7 +7,7 @@ import Hero from '@/components/Hero';
 import LongFormSections from '@/components/LongFormSections';
 import FAQ from '@/components/FAQ';
 import ProcessSteps from '@/components/ProcessSteps';
-import ComparisonStrip from '@/components/ComparisonStrip';
+import WhyBdc from '@/components/WhyBdc';
 import PriceBlock from '@/components/PriceBlock';
 import CoveragePendingBanner from '@/components/CoveragePendingBanner';
 import Container from '@/components/Container';
@@ -55,8 +55,8 @@ export default async function CountyPage({ params }: Props) {
       />
       {isPending && <CoveragePendingBanner areaName={c.name} />}
       <LongFormSections sections={c.longFormSections || []} />
+      <WhyBdc />
       <ProcessSteps />
-      <ComparisonStrip />
       <PriceBlock />
       {c.cities && c.cities.length > 0 && (
         <section className="bg-white border-y border-stone">

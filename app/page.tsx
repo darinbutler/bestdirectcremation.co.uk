@@ -2,7 +2,7 @@ import Hero from '@/components/Hero';
 import UspGrid from '@/components/UspGrid';
 import ImageTextSection from '@/components/ImageTextSection';
 import ProcessSteps from '@/components/ProcessSteps';
-import ComparisonStrip from '@/components/ComparisonStrip';
+import WhyBdc from '@/components/WhyBdc';
 import PriceBlock from '@/components/PriceBlock';
 import UkCoverageMap from '@/components/UkCoverageMap';
 import FAQ from '@/components/FAQ';
@@ -122,7 +122,7 @@ export default function Home() {
         </ul>
       </ImageTextSection>
 
-      <ComparisonStrip />
+      <WhyBdc />
       <PriceBlock />
       <ProcessSteps />
       <UkCoverageMap />

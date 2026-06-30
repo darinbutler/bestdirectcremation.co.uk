@@ -4,7 +4,7 @@ import { allGenericSlugsQuery, genericTermBySlugQuery } from '@/lib/queries';
 import Hero from '@/components/Hero';
 import Container from '@/components/Container';
 import FAQ from '@/components/FAQ';
-import ComparisonStrip from '@/components/ComparisonStrip';
+import WhyBdc from '@/components/WhyBdc';
 import PriceBlock from '@/components/PriceBlock';
 import { PortableText } from '@portabletext/react';
 
@@ -31,7 +31,7 @@ export default async function GenericTermPage({ params }: Props) {
         {g.intentMatch && <PortableText value={g.intentMatch} />}
         {g.longForm && <div className="mt-8"><PortableText value={g.longForm} /></div>}
       </Container>
-      {g.showComparisonStrip && <ComparisonStrip />}
+      {g.showComparisonStrip && <WhyBdc />}
       <PriceBlock />
       {g.faqs && g.faqs.length > 0 && (
         <FAQ items={g.faqs.map((f: any) => ({ question: f.question, answer: f.answer }))} />
