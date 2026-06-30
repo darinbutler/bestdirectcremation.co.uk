@@ -1,5 +1,6 @@
 import Container from './Container';
 import PhoneCTA from './PhoneCTA';
+import CountUp from './CountUp';
 import { SITE } from '@/lib/site';
 
 const INCLUDED = [
@@ -27,9 +28,13 @@ export default function PriceBlock() {
         <div className="grid lg:grid-cols-3 gap-10">
           <div className="lg:col-span-1">
             <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-3">Pricing</p>
-            <h2 className="font-serif text-section font-medium text-navy mb-4">
-              Direct Cremation from {SITE.priceLabel}
+            <h2 className="font-serif text-2xl md:text-3xl font-medium text-green mb-2">
+              Direct cremation from
             </h2>
+            {/* Animated price — counts up from 0 on scroll-in */}
+            <p className="font-serif font-medium text-green leading-none mb-4 text-[clamp(3rem,7vw,5rem)]">
+              <CountUp value={1499} />
+            </p>
             <p className="text-ink/80 text-sm leading-relaxed mb-5">
               A simple, affordable funeral that saves more than £3,000 compared to the average traditional UK funeral
               ({SITE.sunlife2026}, SunLife Cost of Dying Report 2026).
@@ -37,11 +42,11 @@ export default function PriceBlock() {
             <p className="text-ink/80 text-sm leading-relaxed mb-6">
               Clear pricing. No hidden extras. Local professional care. Maximum {SITE.priceCeiling} with Priority Care.
             </p>
-            <PhoneCTA size="md" variant="gold" showSubtext />
+            <PhoneCTA size="md" variant="green" pulse showSubtext />
           </div>
           <div className="lg:col-span-2 grid sm:grid-cols-2 gap-8">
             <div>
-              <p className="font-serif text-navy text-lg mb-3">What&apos;s included</p>
+              <p className="font-serif text-green text-lg mb-3">What&apos;s included</p>
               <ul className="space-y-2 text-sm text-ink/85">
                 {INCLUDED.map(it => (
                   <li key={it} className="flex gap-2">

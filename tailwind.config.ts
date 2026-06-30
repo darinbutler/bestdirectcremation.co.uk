@@ -43,6 +43,30 @@ const config: Config = {
       backgroundImage: {
         'gradient-overlay': 'linear-gradient(to bottom, rgba(31,42,68,0.55), rgba(31,42,68,0.25))',
       },
+      keyframes: {
+        'pulse-slow': {
+          '0%, 100%': { opacity: '1' },
+          '50%':      { opacity: '0.85' },
+        },
+        'pulse-ring': {
+          '0%':   { transform: 'scale(1)',   opacity: '0.45' },
+          '100%': { transform: 'scale(1.6)', opacity: '0' },
+        },
+        'blink-caret': {
+          '0%, 50%':   { opacity: '1' },
+          '51%, 100%': { opacity: '0' },
+        },
+        'fade-in-up': {
+          'from': { opacity: '0', transform: 'translateY(12px)' },
+          'to':   { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'pulse-slow':  'pulse-slow 3s ease-in-out infinite',
+        'pulse-ring':  'pulse-ring 2.2s ease-out infinite',
+        'blink-caret': 'blink-caret 1.1s step-end infinite',
+        'fade-in-up':  'fade-in-up 0.6s ease-out forwards',
+      },
     },
   },
   plugins: [],

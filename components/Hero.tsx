@@ -49,7 +49,7 @@ export default function Hero({
           )}
           {showCTA && (
             <div className="flex flex-col items-start gap-1.5">
-              <PhoneCTA size="md" variant="green" />
+              <PhoneCTA size="md" variant="green" pulse />
               <p className="text-xs md:text-sm italic text-green font-medium">{SITE.promiseSubtext}</p>
             </div>
           )}

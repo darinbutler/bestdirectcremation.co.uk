@@ -1,4 +1,5 @@
 import PhoneCTA from './PhoneCTA';
+import CountUp from './CountUp';
 import { SITE } from '@/lib/site';
 import type { ComparisonTable } from '@/lib/comparisonTables';
 
@@ -19,7 +20,7 @@ export default function PriceDifferential({ table }: { table: ComparisonTable })
         </p>
         <h2 className="text-center font-serif text-2xl md:text-3xl text-green mb-8 md:mb-10">
           {hasSavings ? (
-            <>Save <span className="text-gold">£{pricing.savings.toLocaleString()}</span> with Best Direct Cremation</>
+            <>Save <span className="text-gold"><CountUp value={pricing.savings} /></span> with Best Direct Cremation</>
           ) : (
             <>Best Direct Cremation vs {competitorName}</>
           )}
@@ -34,7 +35,7 @@ export default function PriceDifferential({ table }: { table: ComparisonTable })
             </div>
             <p className="text-xs uppercase tracking-wider text-gold font-bold mb-3">Best Direct Cremation</p>
             <div className="flex items-baseline gap-2 mb-2">
-              <span className="font-serif text-5xl md:text-6xl text-white font-medium">£{pricing.bdcPrice.toLocaleString()}</span>
+              <span className="font-serif text-5xl md:text-6xl text-white font-medium"><CountUp value={pricing.bdcPrice} /></span>
             </div>
             <p className="text-cream/85 text-sm md:text-base mb-5 leading-snug">{pricing.bdcLabel}</p>
             <ul className="space-y-1.5 text-sm text-cream/95 mb-6">
@@ -65,7 +66,7 @@ export default function PriceDifferential({ table }: { table: ComparisonTable })
           <div className="bg-white border-2 border-stone rounded-2xl px-6 py-8 md:px-10 md:py-12">
             <p className="text-xs uppercase tracking-wider text-ink/55 font-bold mb-3">{competitorName}</p>
             <div className="flex items-baseline gap-2 mb-2">
-              <span className="font-serif text-5xl md:text-6xl text-ink/85 font-medium">£{pricing.competitorPrice.toLocaleString()}</span>
+              <span className="font-serif text-5xl md:text-6xl text-ink/85 font-medium"><CountUp value={pricing.competitorPrice} /></span>
             </div>
             <p className="text-ink/65 text-sm md:text-base mb-5 leading-snug">{pricing.competitorLabel}</p>
             <ul className="space-y-1.5 text-sm text-ink/70">

@@ -4,10 +4,16 @@ type Variant = 'green' | 'gold' | 'invert' | 'sage';
 type Size = 'sm' | 'md' | 'lg';
 
 const variantStyles: Record<Variant, string> = {
-  green:  'bg-green text-white hover:bg-green-dark',  // brand primary CTA
+  green:  'bg-green text-white hover:bg-green-dark',
   gold:   'bg-gold text-white hover:bg-gold-dark',
   invert: 'bg-white text-green hover:bg-cream',
   sage:   'bg-sage-700 text-white hover:bg-sage-800',
+};
+const ringStyles: Record<Variant, string> = {
+  green:  'bg-green',
+  gold:   'bg-gold',
+  invert: 'bg-white',
+  sage:   'bg-sage-700',
 };
 const sizeStyles: Record<Size, string> = {
   sm: 'text-sm px-4 py-2 rounded-full gap-2',
@@ -20,16 +26,25 @@ export default function PhoneCTA({
 }: { size?: Size; variant?: Variant; showSubtext?: boolean; pulse?: boolean }) {
   return (
     <div className="inline-flex flex-col items-start gap-2">
-      <a
-        href={SITE.phoneHref}
-        aria-label={`Call Best Direct Cremation on ${SITE.phone}, 24 hours a day`}
-        className={`inline-flex items-center font-semibold tracking-wide transition ${variantStyles[variant]} ${sizeStyles[size]} ${pulse ? 'animate-pulse-slow' : ''}`}
-      >
-        <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-        </svg>
-        {SITE.phone}
-      </a>
+      <span className="relative inline-flex motion-reduce:!animate-none">
+        {/* Pulse ring — pure CSS expanding ring behind the button. Subtle, calls the eye. */}
+        {pulse && (
+          <span
+            aria-hidden="true"
+            className={`absolute inset-0 rounded-full animate-pulse-ring motion-reduce:hidden ${ringStyles[variant]}`}
+          />
+        )}
+        <a
+          href={SITE.phoneHref}
+          aria-label={`Call Best Direct Cremation on ${SITE.phone}, 24 hours a day`}
+          className={`relative inline-flex items-center font-semibold tracking-wide transition ${variantStyles[variant]} ${sizeStyles[size]}`}
+        >
+          <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>
+          {SITE.phone}
+        </a>
+      </span>
       {showSubtext && (
         <span className="text-xs md:text-sm italic text-green/80 px-1 font-medium">{SITE.promiseSubtext}</span>
       )}
