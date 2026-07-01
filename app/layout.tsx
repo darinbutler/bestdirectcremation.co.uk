@@ -49,7 +49,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="font-sans">
         <Header />
-        <main>{children}</main>
+        {/* pb-16 on mobile reserves ~64px so page content isn't hidden behind
+            the fixed MobileCallBar. md:pb-0 removes it on desktop where the bar
+            is hidden. */}
+        <main className="pb-16 md:pb-0">{children}</main>
         <Footer />
         <MobileCallBar />
         <JsonLd raw={jsonLdString(organizationSchema(), webSiteSchema())} />
