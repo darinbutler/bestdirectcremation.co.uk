@@ -35,7 +35,7 @@ export const FOOTER_SECTIONS: NavSection[] = [
     title: 'Popular Cities',
     links: [
       { label: 'London',            href: '/london/' },
-      { label: 'Manchester',        href: '/greater-manchester/' },
+      { label: 'Manchester',        href: '/manchester/' },
       { label: 'Birmingham',        href: '/west-midlands/' },
       { label: 'Liverpool',         href: '/merseyside/' },
       { label: 'Leeds',             href: '/west-yorkshire/' },
