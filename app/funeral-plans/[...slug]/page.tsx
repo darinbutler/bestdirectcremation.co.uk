@@ -106,7 +106,7 @@ export default async function FuneralPlanArticle({ params }: Props) {
                 <ArticleTOC headings={extractHeadings(a.body)} />
 
                 <div className="bg-cream rounded-2xl p-6 border border-stone">
-                  <p className="text-xs uppercase tracking-wider text-gold font-bold mb-2">Direct cremation today</p>
+                  <p className="text-xs uppercase tracking-wider text-gold font-bold mb-2">Arrange a direct cremation today</p>
                   <p className="font-serif text-3xl text-green leading-none mb-1">
                     <CountUp value={1499} />
                   </p>

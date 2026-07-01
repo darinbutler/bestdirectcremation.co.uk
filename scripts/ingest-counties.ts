@@ -254,10 +254,22 @@ function faqs(c: County) {
 
 async function run() {
   console.log(`Ingesting ${COUNTIES.length} counties (full 11-section long-form) into ${PROJECT_ID}/${DATASET}…`);
+  let preservedCount = 0;
   for (const c of COUNTIES) {
-    const doc = {
+    const _id = `county-${c.slug}`;
+
+    // Preserve Apify-added enrichment: fetch the existing doc so we can carry
+    // forward crematoria + registerOffices + partnerFds + cities arrays.
+    // Without this step, createOrReplace would wipe them out and the
+    // /crematoria/ and /register-offices/ directories would go empty.
+    const existing = await client.fetch<any>(
+      `*[_id == $id][0]{ crematoria, registerOffices, partnerFds, cities, seo }`,
+      { id: _id }
+    );
+
+    const doc: any = {
       _type: 'county',
-      _id: `county-${c.slug}`,
+      _id,
       name: c.name,
       slug: { _type: 'slug', current: c.slug },
       country: c.country,
@@ -270,10 +282,19 @@ async function run() {
       faqs: faqs(c),
       lastReviewed: new Date().toISOString().split('T')[0],
     };
+
+    // Merge in fields that other scripts / editors own
+    if (existing?.crematoria?.length)      { doc.crematoria = existing.crematoria; preservedCount++; }
+    if (existing?.registerOffices?.length) { doc.registerOffices = existing.registerOffices; }
+    if (existing?.partnerFds?.length)      { doc.partnerFds = existing.partnerFds; }
+    if (existing?.cities?.length)          { doc.cities = existing.cities; }
+    if (existing?.seo)                     { doc.seo = existing.seo; }
+
     await client.createOrReplace(doc);
-    console.log(`  ✓ ${c.name.padEnd(38)} (${c.country})`);
+    const enrichNote = existing?.crematoria?.length ? ` [+${existing.crematoria.length} crem, +${existing.registerOffices?.length || 0} RO preserved]` : '';
+    console.log(`  ✓ ${c.name.padEnd(38)} (${c.country})${enrichNote}`);
   }
-  console.log(`\nDone. ${COUNTIES.length} county docs with full long-form + FAQs.`);
+  console.log(`\nDone. ${COUNTIES.length} county docs written. Apify enrichment preserved on ${preservedCount} counties.`);
 }
 
 run().catch(err => { console.error(err); process.exit(1); });

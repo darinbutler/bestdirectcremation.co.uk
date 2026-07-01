@@ -303,11 +303,23 @@ const COUNTY_NAMES: Record<string,string> = {
 
 async function run() {
   console.log(`Ingesting ${TOWNS.length} towns into ${PROJECT_ID}/${DATASET}…`);
+  let preservedCount = 0;
   for (const t of TOWNS) {
     const countyName = COUNTY_NAMES[t.countySlug] || t.countySlug;
-    const doc = {
+    const _id = `town-${t.slug}`;
+
+    // Preserve Apify-added enrichment: nearestCrematoria, registerOffice,
+    // partnerFd, alternateFds, seo, editor-customised uniqueLocalAngle.
+    // Without this the /crematoria/ hub loses town-level data and locality
+    // pages lose their Apify local details.
+    const existing = await client.fetch<any>(
+      `*[_id == $id][0]{ nearestCrematoria, registerOffice, partnerFd, alternateFds, seo, uniqueLocalAngle }`,
+      { id: _id }
+    );
+
+    const doc: any = {
       _type: 'town',
-      _id: `town-${t.slug}`,
+      _id,
       name: t.name,
       slug: { _type: 'slug', current: t.slug },
       county: { _type: 'reference', _ref: `county-${t.countySlug}` },
@@ -321,9 +333,21 @@ async function run() {
       faqs: faqs(t, countyName),
       lastReviewed: new Date().toISOString().split('T')[0],
     };
+
+    if (existing?.nearestCrematoria?.length) { doc.nearestCrematoria = existing.nearestCrematoria; preservedCount++; }
+    if (existing?.registerOffice)             doc.registerOffice = existing.registerOffice;
+    if (existing?.partnerFd)                  doc.partnerFd = existing.partnerFd;
+    if (existing?.alternateFds?.length)       doc.alternateFds = existing.alternateFds;
+    if (existing?.seo)                        doc.seo = existing.seo;
+    // Preserve editor-customised uniqueLocalAngle (don't overwrite with placeholder)
+    if (existing?.uniqueLocalAngle && !existing.uniqueLocalAngle.startsWith('[Editor:')) {
+      doc.uniqueLocalAngle = existing.uniqueLocalAngle;
+    }
+
     await client.createOrReplace(doc);
-    console.log(`  ✓ ${t.name.padEnd(28)} (${countyName})`);
+    const enrichNote = existing?.nearestCrematoria?.length ? ` [+${existing.nearestCrematoria.length} crem preserved]` : '';
+    console.log(`  ✓ ${t.name.padEnd(28)} (${countyName})${enrichNote}`);
   }
-  console.log(`\nDone. ${TOWNS.length} town docs created.`);
+  console.log(`\nDone. ${TOWNS.length} town docs created. Apify enrichment preserved on ${preservedCount} towns.`);
 }
 run().catch(err => { console.error(err); process.exit(1); });
