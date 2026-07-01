@@ -77,25 +77,110 @@ export default function LocalVsCentralised({ table }: { table: ComparisonTable }
 
           {/* Competitor — centralised, iconographic */}
           <div className="bg-white rounded-2xl overflow-hidden border border-stone flex flex-col">
-            <div className="relative h-56 md:h-64 bg-gradient-to-br from-ink/10 to-ink/20 flex items-center justify-center overflow-hidden">
-              {/* Distance line illustration */}
-              <svg className="absolute inset-0 w-full h-full" viewBox="0 0 400 256" preserveAspectRatio="none">
-                <defs>
-                  <pattern id="dashes" patternUnits="userSpaceOnUse" width="20" height="2">
-                    <line x1="0" y1="1" x2="10" y2="1" stroke="currentColor" strokeWidth="2" className="text-ink/30" />
-                  </pattern>
-                </defs>
-                {/* Home pin (left) */}
-                <circle cx="60" cy="128" r="8" fill="currentColor" className="text-ink/40" />
-                <circle cx="60" cy="128" r="4" fill="white" />
-                <text x="60" y="155" textAnchor="middle" className="text-[10px] fill-ink/55 uppercase tracking-wider font-semibold">Your home</text>
-                {/* Dashed line */}
-                <line x1="76" y1="128" x2="324" y2="128" strokeWidth="2" strokeDasharray="6 4" className="stroke-ink/35" />
-                {/* Hub pin (right) */}
-                <circle cx="340" cy="128" r="14" fill="currentColor" className="text-ink/45" />
-                <text x="340" y="158" textAnchor="middle" className="text-[10px] fill-ink/55 uppercase tracking-wider font-semibold">Operator&apos;s crematorium</text>
+            <div className="relative h-56 md:h-64 bg-gradient-to-br from-ink/[0.06] to-ink/[0.14] flex items-center justify-center overflow-hidden">
+              {/* Distance-map illustration: small warm home pin on left, winding
+                  dashed path across, imposing "mega crematorium" building on right. */}
+              <svg
+                className="absolute inset-0 w-full h-full"
+                viewBox="0 0 400 256"
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden
+              >
+                {/* Distance label above the path */}
+                <text x="200" y="46" textAnchor="middle"
+                      style={{ fontSize: 11, letterSpacing: 1.2 }}
+                      className="fill-ink/55 uppercase font-semibold">
+                  Often 100+ miles
+                </text>
+
+                {/* Winding dashed route */}
+                <path
+                  d="M 74 128 C 130 78, 180 178, 230 100 S 280 172, 300 130"
+                  fill="none"
+                  strokeWidth="2.4"
+                  strokeDasharray="6 5"
+                  strokeLinecap="round"
+                  className="stroke-ink/40"
+                />
+
+                {/* HOME PIN (left) — small, warm gold, with tiny house glyph */}
+                <g transform="translate(38 82)">
+                  {/* Pin drop shadow */}
+                  <ellipse cx="18" cy="60" rx="10" ry="2.5" className="fill-black/15" />
+                  {/* Pin body — teardrop */}
+                  <path
+                    d="M18 0 C28 0 34 8 34 18 C34 30 18 52 18 52 C18 52 2 30 2 18 C2 8 8 0 18 0 Z"
+                    className="fill-gold"
+                    stroke="#A6864F"
+                    strokeWidth="1.2"
+                  />
+                  {/* Tiny white house inside pin */}
+                  <path
+                    d="M18 9 L9 18 L11 18 L11 26 L25 26 L25 18 L27 18 Z M16 26 L16 21 L20 21 L20 26"
+                    fill="white"
+                  />
+                </g>
+                <text x="55" y="168" textAnchor="middle"
+                      style={{ fontSize: 10, letterSpacing: 1.4 }}
+                      className="fill-ink/75 uppercase font-bold">
+                  Your local area
+                </text>
+
+                {/* MEGA CREMATORIUM (right) — imposing industrial building */}
+                <g transform="translate(268 60)">
+                  {/* Smoke plumes rising from chimney (three overlapping ellipses) */}
+                  <ellipse cx="76" cy="8"  rx="10" ry="6" className="fill-black/10" />
+                  <ellipse cx="86" cy="0"  rx="9"  ry="5" className="fill-black/[0.07]" />
+                  <ellipse cx="70" cy="-4" rx="7"  ry="4" className="fill-black/[0.05]" />
+                  <ellipse cx="82" cy="18" rx="11" ry="6" className="fill-black/12" />
+
+                  {/* Tall industrial chimney */}
+                  <rect x="70" y="18" width="10" height="52" className="fill-ink/70" />
+                  <rect x="67" y="16" width="16" height="5"  className="fill-ink/85" />
+                  {/* Chimney vertical highlight stripe */}
+                  <rect x="72" y="22" width="1.5" height="46" className="fill-white/10" />
+
+                  {/* Main factory-block body */}
+                  <rect x="4" y="46" width="96" height="70" className="fill-ink/70" />
+                  {/* Roofline detail */}
+                  <rect x="4" y="46" width="96" height="4" className="fill-ink/85" />
+
+                  {/* Rows of small institutional windows */}
+                  {[
+                    { row: 0, y: 58 },
+                    { row: 1, y: 76 },
+                    { row: 2, y: 94 },
+                  ].map(({ row, y }) => (
+                    <g key={row}>
+                      <rect x="12" y={y} width="7" height="9" className="fill-ink/45" />
+                      <rect x="24" y={y} width="7" height="9" className="fill-ink/45" />
+                      <rect x="36" y={y} width="7" height="9" className="fill-ink/45" />
+                      <rect x="60" y={y} width="7" height="9" className="fill-ink/45" />
+                      <rect x="72" y={y} width="7" height="9" className="fill-ink/45" />
+                      <rect x="84" y={y} width="7" height="9" className="fill-ink/45" />
+                    </g>
+                  ))}
+
+                  {/* Wide industrial entrance / delivery bay */}
+                  <rect x="42" y="94" width="20" height="22" className="fill-ink/90" />
+                  <line x1="52" y1="94" x2="52" y2="116" strokeWidth="0.5" className="stroke-white/20" />
+
+                  {/* Ground shadow */}
+                  <ellipse cx="52" cy="120" rx="60" ry="3" className="fill-black/15" />
+                </g>
+                <text x="320" y="200" textAnchor="middle"
+                      style={{ fontSize: 11, letterSpacing: 1.4 }}
+                      className="fill-ink/85 uppercase font-bold">
+                  Mega crematorium
+                </text>
+                <text x="320" y="214" textAnchor="middle"
+                      style={{ fontSize: 9, letterSpacing: 0.8 }}
+                      className="fill-ink/55 uppercase font-semibold">
+                  Not your local one
+                </text>
               </svg>
-              <div className="absolute top-4 left-4 bg-ink/70 text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">
+
+              <div className="absolute top-4 left-4 bg-ink/80 text-white text-xs font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">
                 {competitorName}
               </div>
             </div>
