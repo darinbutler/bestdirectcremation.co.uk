@@ -77,6 +77,14 @@ export const allCountiesForHubQuery = groq`
   }
 `;
 
+// Every town — used by the /coverage/ search input so users can search for
+// a town name (e.g. "Bolton") rather than needing to know the county.
+export const allTownsForHubQuery = groq`
+  *[_type == "town" && defined(slug.current) && defined(county->slug.current)] | order(name asc){
+    name, "slug": slug.current, "county": county->name, "countySlug": county->slug.current,
+  }
+`;
+
 // All generic-term landers for /services/ hub
 export const allGenericTermsQuery = groq`
   *[_type == "genericTerm" && defined(slug.current)] | order(title asc) {

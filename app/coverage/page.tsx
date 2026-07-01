@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { sanity } from '@/lib/sanity';
-import { allCountiesForHubQuery } from '@/lib/queries';
+import { allCountiesForHubQuery, allTownsForHubQuery } from '@/lib/queries';
 import Hero from '@/components/Hero';
 import Container from '@/components/Container';
 import PhoneCTA from '@/components/PhoneCTA';
+import CoverageSearch from '@/components/CoverageSearch';
 import { SITE } from '@/lib/site';
 
 export const revalidate = 60;
@@ -27,7 +28,10 @@ const ACTIVE_COUNTRIES = ['England', 'Wales'];
 const PENDING_COUNTRIES = ['Scotland', 'Northern Ireland'];
 
 export default async function CoveragePage() {
-  const counties = await sanity.fetch<Array<{ name: string; slug: string; country: string; region?: string }>>(allCountiesForHubQuery);
+  const [counties, towns] = await Promise.all([
+    sanity.fetch<Array<{ name: string; slug: string; country: string; region?: string }>>(allCountiesForHubQuery),
+    sanity.fetch<Array<{ name: string; slug: string; county?: string; countySlug?: string }>>(allTownsForHubQuery),
+  ]);
   const byCountry: Record<string, typeof counties> = {};
   counties.forEach(c => { (byCountry[c.country] ||= []).push(c); });
   Object.values(byCountry).forEach(list => list!.sort((a, b) => a.name.localeCompare(b.name)));
@@ -36,11 +40,13 @@ export default async function CoveragePage() {
     <>
       <Hero
         eyebrow="UK coverage"
-        title="Direct cremation across England and Wales"
-        subtitle="A growing network of independent funeral directors covers every county in England and Wales. Call us 24 hours a day and we'll arrange a Best Direct Cremation for your family."
+        title="Direct cremation across every UK area"
+        subtitle="A network of independent funeral directors covers every UK county — search for your town or county below, or browse the full A-Z. Call us 24 hours a day."
       />
 
       <Container className="py-12 md:py-16">
+        <CoverageSearch counties={counties} towns={towns}>
+
         {/* Country quick-jump — only live countries */}
         <nav aria-label="Jump to country" className="flex flex-wrap gap-2 mb-12 pb-6 border-b border-stone">
           {ACTIVE_COUNTRIES.filter(c => byCountry[c]).map(country => (
@@ -115,6 +121,8 @@ export default async function CoveragePage() {
             </Link></li>
           </ul>
         </section>
+
+        </CoverageSearch>
 
         {/* Always-on national coverage CTA */}
         <section className="bg-green text-cream rounded-2xl px-6 md:px-10 py-10 md:py-12 text-center mt-8">

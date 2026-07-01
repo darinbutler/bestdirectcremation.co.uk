@@ -117,6 +117,7 @@ const COUNTIES: County[] = [
   { name: 'Merthyr Tydfil', slug: 'merthyr-tydfil', country: 'Wales', region: 'Wales' },
   { name: 'Monmouthshire', slug: 'monmouthshire', country: 'Wales', region: 'Wales' },
   { name: 'Neath Port Talbot', slug: 'neath-port-talbot', country: 'Wales', region: 'Wales' },
+  { name: 'Newport', slug: 'newport', country: 'Wales', region: 'Wales' },
   { name: 'Pembrokeshire', slug: 'pembrokeshire', country: 'Wales', region: 'Wales' },
   { name: 'Powys', slug: 'powys', country: 'Wales', region: 'Wales' },
   { name: 'Rhondda Cynon Taf', slug: 'rhondda-cynon-taf', country: 'Wales', region: 'Wales' },
