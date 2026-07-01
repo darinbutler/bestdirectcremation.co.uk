@@ -11,6 +11,7 @@
 import { createClient } from '@sanity/client';
 import { Linkifier } from './lib/linkify';
 import { GAP_PAGES } from './generics-gap-pages';
+import { GAP_PAGES_BATCH_2 } from './generics-gap-pages-batch-2';
 
 function enrichBlocks(blocks: any[], slug: string): any[] {
   if (!Array.isArray(blocks)) return blocks;
@@ -871,6 +872,7 @@ const GENERICS: Generic[] = [
 // covering high-volume UK search queries where competitors currently rank
 // but we don't. Full ~1,500-2,200 word cornerstones each.
 GENERICS.push(...GAP_PAGES);
+GENERICS.push(...GAP_PAGES_BATCH_2);
 
 // ============================================================
 // INGEST
