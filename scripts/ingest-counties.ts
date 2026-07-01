@@ -10,7 +10,25 @@
  *   npx tsx scripts/ingest-counties.ts
  */
 import { createClient } from '@sanity/client';
+import { randomBytes } from 'crypto';
 import { Linkifier } from './lib/linkify';
+
+/** Every array item Sanity holds must have a stable unique `_key`. */
+function k(): string { return randomBytes(6).toString('hex'); }
+
+/** Walk a value; for any array of objects, add `_key` if missing. In-place. */
+function ensureKeys(value: any): void {
+  if (Array.isArray(value)) {
+    for (const item of value) {
+      if (item && typeof item === 'object' && !Array.isArray(item)) {
+        if (!item._key) item._key = k();
+        for (const key of Object.keys(item)) ensureKeys(item[key]);
+      }
+    }
+  } else if (value && typeof value === 'object') {
+    for (const key of Object.keys(value)) ensureKeys(value[key]);
+  }
+}
 
 function enrichBlocks(blocks: any[], slug: string): any[] {
   if (!Array.isArray(blocks)) return blocks;
@@ -289,6 +307,9 @@ async function run() {
     if (existing?.partnerFds?.length)      { doc.partnerFds = existing.partnerFds; }
     if (existing?.cities?.length)          { doc.cities = existing.cities; }
     if (existing?.seo)                     { doc.seo = existing.seo; }
+
+    // Ensure every array item has a `_key` — Sanity requires this for editing.
+    ensureKeys(doc);
 
     await client.createOrReplace(doc);
     const enrichNote = existing?.crematoria?.length ? ` [+${existing.crematoria.length} crem, +${existing.registerOffices?.length || 0} RO preserved]` : '';

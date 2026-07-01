@@ -5,6 +5,7 @@ import partner from './partner';
 import article from './article';
 import genericTerm from './genericTerm';
 import siteSettings from './siteSettings';
+import author from './author';
 
 import faqItem from './objects/faqItem';
 import crematoriumRef from './objects/crematoriumRef';
@@ -14,7 +15,7 @@ import longFormSection from './objects/longFormSection';
 
 export const schemaTypes = [
   // Documents
-  county, town, partner, article, genericTerm, siteSettings,
+  county, town, partner, article, genericTerm, siteSettings, author,
   // Reusable objects
   faqItem, crematoriumRef, seoBlock, openingHoursDay, longFormSection,
 ];

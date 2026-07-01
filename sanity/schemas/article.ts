@@ -41,6 +41,11 @@ export default defineType({
       name: 'relatedArticles', title: 'Related articles', type: 'array',
       of: [{ type: 'reference', to: [{ type: 'article' }] }],
     }),
+    defineField({
+      name: 'author', title: 'Author / byline',
+      description: 'Person credited on the page + serialised as schema.org Person for EEAT.',
+      type: 'reference', to: [{ type: 'author' }],
+    }),
     defineField({ name: 'lastReviewed', title: 'Last reviewed', type: 'date' }),
     defineField({ name: 'seo', title: 'SEO', type: 'seoBlock' }),
   ],
