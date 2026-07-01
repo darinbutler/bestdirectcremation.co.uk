@@ -4,6 +4,7 @@ import Hero from '@/components/Hero';
 import Container from '@/components/Container';
 import PhoneCTA from '@/components/PhoneCTA';
 import TrustSignals from '@/components/TrustSignals';
+import DirectorySearch from '@/components/DirectorySearch';
 import JsonLd from '@/components/JsonLd';
 import { sanity } from '@/lib/sanity';
 import { allRegisterOfficesQuery } from '@/lib/queries';
@@ -66,7 +67,13 @@ export default async function RegisterOfficesHub() {
             <p className="text-ink/75">We&apos;re still populating this directory. Meanwhile, see your local council&apos;s website for register office details, or call us if you need help.</p>
           </div>
         ) : (
-          <>
+          <DirectorySearch
+            items={all}
+            basePath="/register-offices"
+            label="Search UK register offices by name, postcode or county"
+            itemLabelSingular="register office"
+            itemLabelPlural="register offices"
+          >
             <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-3">Jump by letter</p>
             <div className="flex flex-wrap gap-2 mb-10 pb-8 border-b border-stone">
               {letters.map(L => (
@@ -113,7 +120,7 @@ export default async function RegisterOfficesHub() {
                 </ul>
               </section>
             ))}
-          </>
+          </DirectorySearch>
         )}
       </Container>
 

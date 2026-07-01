@@ -32,6 +32,7 @@ import { createClient } from '@sanity/client';
 import { ApifyClient } from 'apify-client';
 import { writeFileSync, existsSync, readFileSync, mkdirSync } from 'fs';
 import { dirname } from 'path';
+import { isCrematorium, isRegisterOffice } from './lib/directory-filters';
 
 // ----------------------------------------------------------------
 // CONFIG
@@ -144,6 +145,8 @@ type Place = {
   phone?: string;
   url?: string;
   website?: string;
+  category?: string;
+  categories?: string[];
 };
 
 function toPlace(item: any): Place {
@@ -156,6 +159,8 @@ function toPlace(item: any): Place {
     phone: item.phone,
     url: item.url,
     website: item.website,
+    category: item.categoryName || item.category,
+    categories: item.categories,
   };
 }
 
@@ -213,8 +218,16 @@ async function run() {
       continue;
     }
     try {
-      const items = await scrapeGoogleMaps(q.query, q.type === 'crematoria' ? 10 : 5);
-      const places = items.map(toPlace).filter(p => p.name);
+      // Ask Google Maps for a few more than we need — filters will drop
+      // funeral directors / undertakers / non-matching results.
+      const items = await scrapeGoogleMaps(q.query, q.type === 'crematoria' ? 20 : 12);
+      const rawPlaces = items.map(toPlace).filter(p => p.name);
+      // Filter to genuine crematoria / register offices only. Google Maps
+      // returns funeral directors, chapels of rest, stonemasons etc. for our
+      // "crematorium near X" query — reject anything without a positive signal.
+      const places = rawPlaces.filter(p => q.type === 'crematoria' ? isCrematorium(p) : isRegisterOffice(p));
+      const dropped = rawPlaces.length - places.length;
+      if (dropped > 0) console.log(`    filtered out ${dropped} non-${q.type === 'crematoria' ? 'crematorium' : 'register-office'} result${dropped === 1 ? '' : 's'}`);
       allResults[q.key] = places;
       cache[q.key] = places;
       saveCache(cache);  // save after every successful scrape

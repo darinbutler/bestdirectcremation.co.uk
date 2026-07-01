@@ -4,6 +4,7 @@ import Hero from '@/components/Hero';
 import Container from '@/components/Container';
 import PhoneCTA from '@/components/PhoneCTA';
 import TrustSignals from '@/components/TrustSignals';
+import DirectorySearch from '@/components/DirectorySearch';
 import JsonLd from '@/components/JsonLd';
 import { sanity } from '@/lib/sanity';
 import { allCrematoriaQuery } from '@/lib/queries';
@@ -56,7 +57,13 @@ export default async function CrematoriaHub() {
             <PhoneCTA size="md" variant="green" />
           </div>
         ) : (
-          <>
+          <DirectorySearch
+            items={all}
+            basePath="/crematoria"
+            label="Search UK crematoria by name, postcode or county"
+            itemLabelSingular="crematorium"
+            itemLabelPlural="crematoria"
+          >
             {/* A-Z jump */}
             <p className="text-sm uppercase tracking-widest text-gold font-semibold mb-3">Jump by letter</p>
             <div className="flex flex-wrap gap-2 mb-10 pb-8 border-b border-stone">
@@ -118,7 +125,7 @@ export default async function CrematoriaHub() {
                 </ul>
               </section>
             ))}
-          </>
+          </DirectorySearch>
         )}
       </Container>
 

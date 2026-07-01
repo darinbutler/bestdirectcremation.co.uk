@@ -172,51 +172,114 @@ export default function CostCalculator() {
 
           {/* Result panel */}
           <div className="bg-green text-cream rounded-2xl p-6 md:p-8 shadow-lift">
-            <p className="text-xs uppercase tracking-wider text-gold font-bold mb-3">Your estimated saving</p>
 
-            <div className="mb-6">
-              <p className="font-serif text-5xl md:text-6xl text-white leading-none mb-2">
-                {savings > 0 ? <><CountUp value={savings} key={savings} /></> : 'Same range'}
-              </p>
-              {savings > 0 && (
-                <p className="text-cream/85 text-sm md:text-base">
-                  saved vs typical {TYPES.find(t => t.id === type)?.label.toLowerCase()} in {REGIONS.find(r => r.id === region)?.label}
-                </p>
-              )}
-            </div>
-
-            <div className="bg-green-dark rounded-xl p-4 mb-5">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider text-gold font-bold mb-0.5">Best Direct Cremation</p>
-                  <p className="font-serif text-2xl md:text-3xl text-white">£{bdcPrice.toLocaleString()}</p>
-                  <p className="text-[10px] text-cream/70">{priorityCare ? 'inc. Priority Care' : 'all-inclusive'}</p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider text-cream/70 font-bold mb-0.5">
-                    {TYPES.find(t => t.id === type)?.label}
+            {savings > 0 ? (
+              // ── SAVINGS MODE: user is beating the regional average ────────
+              <>
+                <p className="text-xs uppercase tracking-wider text-gold font-bold mb-3">Your estimated saving</p>
+                <div className="mb-6">
+                  <p className="font-serif text-5xl md:text-6xl text-white leading-none mb-2">
+                    <CountUp value={savings} key={savings} />
                   </p>
-                  <p className="font-serif text-2xl md:text-3xl text-cream/85">£{ukAverage.toLocaleString()}</p>
-                  <p className="text-[10px] text-cream/60">{REGIONS.find(r => r.id === region)?.label} average</p>
+                  <p className="text-cream/85 text-sm md:text-base">
+                    saved vs typical {TYPES.find(t => t.id === type)?.label.toLowerCase()} in {REGIONS.find(r => r.id === region)?.label}
+                  </p>
                 </div>
-              </div>
-            </div>
 
-            {type === 'direct' && (
-              <div className="mb-5">
-                <p className="text-xs uppercase tracking-wider text-gold font-bold mb-2">vs other direct cremation providers</p>
-                <ul className="space-y-1.5">
-                  {COMPETITOR_PRICES.map(c => (
-                    <li key={c.name} className="flex items-center justify-between text-sm bg-green-dark/50 rounded-lg px-3 py-2">
-                      <span className="text-cream/85">{c.name} <span className="text-xs text-cream/55">({c.note})</span></span>
-                      <span className="font-serif text-cream">
-                        £{c.price.toLocaleString()}{' '}
-                        {c.price > bdcPrice && <span className="text-gold text-xs">+£{(c.price - bdcPrice).toLocaleString()}</span>}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                {/* Price card — BDC vs the regional average */}
+                <div className="bg-green-dark rounded-xl p-4 mb-5">
+                  <div className="grid grid-cols-2 gap-3">
+                    <div>
+                      <p className="text-[10px] uppercase tracking-wider text-gold font-bold mb-0.5">Best Direct Cremation</p>
+                      <p className="font-serif text-2xl md:text-3xl text-white">£{bdcPrice.toLocaleString()}</p>
+                      <p className="text-[10px] text-cream/70">{priorityCare ? 'inc. Priority Care' : 'all-inclusive'}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-wider text-cream/70 font-bold mb-0.5">
+                        {TYPES.find(t => t.id === type)?.label}
+                      </p>
+                      <p className="font-serif text-2xl md:text-3xl text-cream/85">£{ukAverage.toLocaleString()}</p>
+                      <p className="text-[10px] text-cream/60">{REGIONS.find(r => r.id === region)?.label} average</p>
+                    </div>
+                  </div>
+                </div>
+
+                {type === 'direct' && (
+                  <div className="mb-5">
+                    <p className="text-xs uppercase tracking-wider text-gold font-bold mb-2">vs other direct cremation providers</p>
+                    <ul className="space-y-1.5">
+                      {COMPETITOR_PRICES.map(c => (
+                        <li key={c.name} className="flex items-center justify-between text-sm bg-green-dark/50 rounded-lg px-3 py-2">
+                          <span className="text-cream/85">{c.name} <span className="text-xs text-cream/55">({c.note})</span></span>
+                          <span className="font-serif text-cream">
+                            £{c.price.toLocaleString()}{' '}
+                            {c.price > bdcPrice && <span className="text-gold text-xs">+£{(c.price - bdcPrice).toLocaleString()}</span>}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </>
+            ) : (
+              // ── SAME-RANGE MODE: BDC is at/near regional average ──────────
+              // Reframe as: locally delivered, transparent, personal — the story is
+              // about SERVICE not price. Show only BDC in the price card, plus a
+              // benefits list. No competitor breakdown that could reinforce "tie".
+              <>
+                <p className="text-xs uppercase tracking-wider text-gold font-bold mb-3">Your estimated cost</p>
+                <div className="mb-6">
+                  <p className="font-serif text-4xl md:text-5xl text-white leading-tight mb-2">
+                    Locally delivered.<br />Fixed price.
+                  </p>
+                  <p className="text-cream/85 text-sm md:text-base leading-relaxed">
+                    In {REGIONS.find(r => r.id === region)?.label}, direct cremation typically sits between around{' '}
+                    <span className="text-white font-medium">£{Math.round(ukAverage * 0.85).toLocaleString()}</span> and{' '}
+                    <span className="text-white font-medium">£{Math.max(...COMPETITOR_PRICES.map(c => c.price)).toLocaleString()}</span>.
+                    Best Direct Cremation is at the fair end of that range — with a locally delivered service and no hidden fees at the point of need.
+                  </p>
+                </div>
+
+                {/* Simplified price card — just BDC. */}
+                <div className="bg-green-dark rounded-xl p-5 mb-5 text-center">
+                  <p className="text-[10px] uppercase tracking-wider text-gold font-bold mb-1">Best Direct Cremation</p>
+                  <p className="font-serif text-4xl md:text-5xl text-white leading-none mb-1.5">
+                    £{bdcPrice.toLocaleString()}
+                  </p>
+                  <p className="text-xs text-cream/75">
+                    {priorityCare ? 'all-inclusive · inc. £250 Priority Care' : 'all-inclusive · max £1,749 with Priority Care'}
+                  </p>
+                  <div className="border-t border-white/15 mt-4 pt-3">
+                    <p className="text-[10px] uppercase tracking-wider text-cream/60 font-bold mb-0.5">
+                      Regional context — {REGIONS.find(r => r.id === region)?.label}
+                    </p>
+                    <p className="text-sm text-cream/85">
+                      Typical range £{Math.round(ukAverage * 0.85).toLocaleString()}–£{Math.max(...COMPETITOR_PRICES.map(c => c.price)).toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Why BDC — the benefit list that replaces the competitor grid */}
+                <div className="mb-5">
+                  <p className="text-xs uppercase tracking-wider text-gold font-bold mb-3">What sets us apart</p>
+                  <ul className="space-y-2">
+                    {[
+                      { title: 'Locally delivered', body: 'Vetted independent funeral director in your area — not centralised.' },
+                      { title: 'A real person, 24 hours a day', body: 'We answer the phone ourselves. Never a chatbot or overseas call centre.' },
+                      { title: 'Transparent maximum price', body: `£1,749 is the ceiling, disclosed upfront. No fees added at the point of need.` },
+                      { title: 'NAFD or SAIF accredited', body: 'Every partner funeral director in our UK network is professionally accredited.' },
+                    ].map(b => (
+                      <li key={b.title} className="flex gap-3 bg-green-dark/50 rounded-lg px-3 py-2.5">
+                        <span className="text-gold text-lg leading-none flex-shrink-0">✓</span>
+                        <span>
+                          <span className="block font-serif text-cream leading-snug">{b.title}</span>
+                          <span className="block text-xs text-cream/70 leading-snug mt-0.5">{b.body}</span>
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </>
             )}
 
             <div className="border-t border-white/15 pt-5 mt-5">
