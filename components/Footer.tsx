@@ -16,9 +16,9 @@ export default function Footer() {
   return (
     <footer className="bg-green text-cream/85 mt-12 pb-20 md:pb-12">
       <Container className="py-12 md:py-16">
-        {/* Brand block + columns */}
-        <div className="md:flex md:items-start md:justify-between gap-12 mb-12 md:mb-16">
-          <div className="md:max-w-sm mb-10 md:mb-0">
+        {/* Brand block on its own row so the columns below can spread wide */}
+        <div className="grid lg:grid-cols-[minmax(0,320px)_1fr] gap-10 lg:gap-14 mb-12 lg:mb-16">
+          <div className="lg:pr-4">
             <Image src={IMG.logoWhite} alt={`${SITE.name} logo`} width={280} height={56} className="h-12 w-auto mb-4" />
             <p className="text-sm text-cream/75 leading-relaxed mb-5">
               Simple, dignified direct cremation. Always delivered locally by our handpicked,
@@ -40,18 +40,20 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Sitemap columns */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-10 flex-1 md:max-w-3xl">
+          {/* Sitemap columns — 2 cols on mobile, 3 on tablet, 5 on desktop
+              so we can fit Direct Cremation / Popular Cities / Locations &
+              Directories / Funeral Plans / Help & Guidance side by side. */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-6 gap-y-10">
             {FOOTER_SECTIONS.map(section => (
               <div key={section.title}>
-                <h3 className="font-serif text-white text-xs md:text-sm uppercase tracking-wider mb-4">{section.title}</h3>
-                <ul className="space-y-2.5 text-sm">
+                <h3 className="font-serif text-white text-xs uppercase tracking-wider mb-4">{section.title}</h3>
+                <ul className="space-y-2 text-sm">
                   {section.links.map(l => (
                     <li key={l.href}>
                       {l.external ? (
-                        <a href={l.href} target="_blank" rel="noopener noreferrer" className="text-cream/80 hover:text-white">{l.label}</a>
+                        <a href={l.href} target="_blank" rel="noopener noreferrer" className="text-cream/80 hover:text-white leading-snug inline-block">{l.label}</a>
                       ) : (
-                        <Link href={l.href} className="text-cream/80 hover:text-white">{l.label}</Link>
+                        <Link href={l.href} className="text-cream/80 hover:text-white leading-snug inline-block">{l.label}</Link>
                       )}
                     </li>
                   ))}

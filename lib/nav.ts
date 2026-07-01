@@ -15,36 +15,55 @@ export const PRIMARY_NAV: NavLink[] = [
   { label: 'Help & Guidance',  href: '/help/' },
 ];
 
-// Footer sitemap — designed for maximum SEO coverage and user navigation
+// Footer sitemap — designed for maximum SEO coverage and user navigation.
+// 5-column grid on desktop, split at lg. Every section is a self-contained
+// theme so users can scan by intent rather than by document type.
 export const FOOTER_SECTIONS: NavSection[] = [
   {
     title: 'Direct Cremation',
     links: [
       { label: 'What is a direct cremation?',     href: '/direct-cremation/' },
       { label: 'How direct cremation works',      href: '/help/how-direct-cremation-works/' },
-      { label: 'What’s included',            href: '/help/whats-included/' },
+      { label: 'What’s included',                 href: '/help/whats-included/' },
       { label: 'Direct cremation cost',           href: '/cost/' },
       { label: 'Cost calculator',                 href: '/cost-calculator/' },
       { label: 'Direct cremation near me',        href: '/near-me/' },
-      { label: 'Compare us vs others',            href: '/compare/' },
-      { label: 'Partner funeral directors',       href: '/providers/' },
+      { label: 'Compare us vs other providers',   href: '/compare/' },
     ],
   },
   {
-    title: 'Locations',
+    title: 'Popular Cities',
     links: [
-      { label: 'All UK coverage',                  href: '/coverage/' },
+      { label: 'London',            href: '/london/' },
+      { label: 'Manchester',        href: '/greater-manchester/' },
+      { label: 'Birmingham',        href: '/west-midlands/' },
+      { label: 'Liverpool',         href: '/merseyside/' },
+      { label: 'Leeds',             href: '/west-yorkshire/' },
+      { label: 'Sheffield',         href: '/south-yorkshire/' },
+      { label: 'Bristol',           href: '/bristol/' },
+      { label: 'Nottingham',        href: '/nottinghamshire/' },
+      { label: 'Newcastle',         href: '/tyne-and-wear/' },
+      { label: 'Southampton',       href: '/hampshire/' },
+      { label: 'Cardiff',           href: '/cardiff/' },
+      { label: 'Edinburgh',         href: '/edinburgh/' },
+      { label: 'Glasgow',           href: '/glasgow/' },
+      { label: 'Belfast',           href: '/county-antrim/' },
+      { label: 'Brighton',          href: '/east-sussex/' },
+      { label: 'Reading',           href: '/berkshire/' },
+      { label: 'See every UK county →', href: '/coverage/' },
+    ],
+  },
+  {
+    title: 'Locations & Directories',
+    links: [
+      { label: 'All UK coverage — every county',   href: '/coverage/' },
       { label: 'UK crematoria directory',          href: '/crematoria/' },
       { label: 'UK register offices',              href: '/register-offices/' },
+      { label: 'Partner funeral directors',        href: '/providers/' },
       { label: 'England',                          href: '/coverage/#england' },
       { label: 'Wales',                            href: '/coverage/#wales' },
-      { label: 'Direct cremation London',          href: '/london/' },
-      { label: 'Direct cremation Manchester',      href: '/manchester/' },
-      { label: 'Direct cremation Birmingham',      href: '/west-midlands/' },
-      { label: 'Direct cremation Liverpool',       href: '/merseyside/' },
-      { label: 'Direct cremation Leeds',           href: '/west-yorkshire/' },
-      { label: 'Direct cremation Bristol',         href: '/bristol/' },
-      { label: 'Direct cremation Cardiff',         href: '/cardiff/' },
+      { label: 'Scotland',                         href: '/coverage/#scotland' },
+      { label: 'Northern Ireland',                 href: '/coverage/#northern-ireland' },
     ],
   },
   {
@@ -57,7 +76,7 @@ export const FOOTER_SECTIONS: NavSection[] = [
       { label: 'Plan vs life insurance',           href: '/funeral-plans/vs-life-insurance/' },
       { label: 'FCA-regulated plans explained',    href: '/funeral-plans/fca-regulated/' },
       { label: 'Compare plan providers',           href: '/funeral-plans/compare/' },
-      { label: 'See all funeral plan guides →', href: '/funeral-plans/' },
+      { label: 'See all funeral plan guides →',    href: '/funeral-plans/' },
     ],
   },
   {
@@ -70,7 +89,7 @@ export const FOOTER_SECTIONS: NavSection[] = [
       { label: 'Bereavement support',              href: '/help/bereavement-support/' },
       { label: 'Probate & estate',                 href: '/help/probate-and-estate/' },
       { label: 'Writing a will',                   href: '/help/writing-a-will/' },
-      { label: 'See all help articles →',     href: '/help/' },
+      { label: 'See all help articles →',          href: '/help/' },
       { label: 'Funeral terms glossary',           href: '/glossary/' },
       { label: 'Printable checklists (PDF)',       href: '/resources/' },
     ],
