@@ -71,10 +71,12 @@ function saveCache(c: Record<string, any[]>) {
 
 // ----------------------------------------------------------------
 // APIFY — run Google Maps scraper for a given search query
+// Uses start() + poll instead of call() so we don't depend on the
+// log-streaming connection (which is what drops with ECONNRESET).
 // ----------------------------------------------------------------
-async function scrapeGoogleMaps(query: string, maxResults: number = 50): Promise<any[]> {
-  console.log(`  ↻ Scraping: "${query}" (max ${maxResults})`);
-  const run = await apify.actor(GMAPS_ACTOR).call({
+async function scrapeGoogleMapsOnce(query: string, maxResults: number): Promise<any[]> {
+  // Start the run async — does NOT open a log stream
+  const run = await apify.actor(GMAPS_ACTOR).start({
     searchStringsArray: [query],
     locationQuery: 'United Kingdom',
     maxCrawledPlacesPerSearch: maxResults,
@@ -84,9 +86,50 @@ async function scrapeGoogleMaps(query: string, maxResults: number = 50): Promise
     includeReviews: false,
     scrapePlaceDetailPage: true,
   });
+
+  // Poll for completion. Each request is short-lived (no streaming connection).
+  const runClient = apify.run(run.id);
+  let status = run.status;
+  const start = Date.now();
+  const TIMEOUT_MS = 5 * 60 * 1000;  // 5 min hard cap per query
+  while (status !== 'SUCCEEDED' && status !== 'FAILED' && status !== 'ABORTED' && status !== 'TIMED-OUT') {
+    if (Date.now() - start > TIMEOUT_MS) {
+      throw new Error(`Run ${run.id} timed out after 5 minutes`);
+    }
+    await new Promise(r => setTimeout(r, 4000));  // poll every 4s
+    const refreshed = await runClient.get();
+    status = refreshed?.status as any;
+  }
+
+  if (status !== 'SUCCEEDED') {
+    throw new Error(`Run ${run.id} ended with status ${status}`);
+  }
+
   const { items } = await apify.dataset(run.defaultDatasetId).listItems();
-  console.log(`    ✓ ${items.length} results`);
   return items;
+}
+
+/** Retry wrapper — catches transient connection errors (ECONNRESET, ETIMEDOUT, fetch failures). */
+async function scrapeGoogleMaps(query: string, maxResults: number = 50): Promise<any[]> {
+  console.log(`  ↻ Scraping: "${query}" (max ${maxResults})`);
+  const TRANSIENT_CODES = ['ECONNRESET', 'ETIMEDOUT', 'ENETUNREACH', 'EAI_AGAIN', 'ECONNREFUSED'];
+  let lastErr: any;
+  for (let attempt = 1; attempt <= 3; attempt++) {
+    try {
+      const items = await scrapeGoogleMapsOnce(query, maxResults);
+      console.log(`    ✓ ${items.length} results${attempt > 1 ? ` (retry ${attempt - 1})` : ''}`);
+      return items;
+    } catch (err: any) {
+      lastErr = err;
+      const code = err?.code || err?.cause?.code;
+      const isTransient = TRANSIENT_CODES.includes(code) || /econnreset|etimedout|fetch failed|network/i.test(err?.message || '');
+      if (!isTransient || attempt === 3) break;
+      const backoff = attempt * 5000;  // 5s, 10s
+      console.log(`    ↪ Transient error (${code || 'connection'}). Retry ${attempt}/2 in ${backoff / 1000}s…`);
+      await new Promise(r => setTimeout(r, backoff));
+    }
+  }
+  throw lastErr;
 }
 
 // ----------------------------------------------------------------

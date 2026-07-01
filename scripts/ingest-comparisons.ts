@@ -11,6 +11,18 @@
  * Usage:  npx tsx scripts/ingest-comparisons.ts
  */
 import { createClient } from '@sanity/client';
+import { Linkifier } from './lib/linkify';
+
+function enrichBlocks(blocks: any[], slug: string): any[] {
+  if (!Array.isArray(blocks)) return blocks;
+  const linkifier = new Linkifier({ currentSlug: slug });
+  return blocks.map(block => {
+    if (block?.style === 'normal' && block?.children?.[0]?.text && (!block.markDefs || block.markDefs.length === 0)) {
+      return linkifier.pt(block.children[0].text);
+    }
+    return block;
+  });
+}
 
 const PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '80kiihr6';
 const DATASET    = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
@@ -283,7 +295,7 @@ async function run() {
       section: 'compare',
       intent: 'comparison',
       excerpt: c.excerpt,
-      body: c.bodyBlocks,
+      body: enrichBlocks(c.bodyBlocks, c.slug),
       faqs: c.faqs.map(f => ({
         _type: 'faq',
         _key: f.q.slice(0, 12).replace(/\s/g, ''),

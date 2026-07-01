@@ -9,6 +9,18 @@
  * Usage:  npx tsx scripts/ingest-generics.ts
  */
 import { createClient } from '@sanity/client';
+import { Linkifier } from './lib/linkify';
+
+function enrichBlocks(blocks: any[], slug: string): any[] {
+  if (!Array.isArray(blocks)) return blocks;
+  const linkifier = new Linkifier({ currentSlug: slug });
+  return blocks.map(block => {
+    if (block?.style === 'normal' && block?.children?.[0]?.text && (!block.markDefs || block.markDefs.length === 0)) {
+      return linkifier.pt(block.children[0].text);
+    }
+    return block;
+  });
+}
 
 const PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '80kiihr6';
 const DATASET    = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
@@ -868,7 +880,7 @@ async function run() {
       serviceNoun: g.serviceNoun,
       // intentMatch (schema field): opening hero paragraph derived from intent
       intentMatch: [pt(g.intentMatch + ' — direct cremation from £1,499 all-inclusive, delivered locally by a vetted independent funeral director. Call 0333 242 1405, 24 hours a day.')],
-      longForm: g.longForm,
+      longForm: enrichBlocks(g.longForm, g.slug),
       faqs: g.faqs.map(f => ({
         _type: 'faq',
         _key: f.q.slice(0, 12).replace(/\s/g, ''),

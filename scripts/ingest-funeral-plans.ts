@@ -17,6 +17,17 @@
  * Usage:  npx tsx scripts/ingest-funeral-plans.ts
  */
 import { createClient } from '@sanity/client';
+import { Linkifier } from './lib/linkify';
+
+function enrichBody(bodyBlocks: any[], slug: string): any[] {
+  const linkifier = new Linkifier({ currentSlug: slug });
+  return bodyBlocks.map(block => {
+    if (block?.style === 'normal' && block?.children?.[0]?.text && (!block.markDefs || block.markDefs.length === 0)) {
+      return linkifier.pt(block.children[0].text);
+    }
+    return block;
+  });
+}
 
 const PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '80kiihr6';
 const DATASET    = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
@@ -588,7 +599,7 @@ async function run() {
       section: 'funeral-plans',
       intent: a.intent,
       excerpt: a.excerpt,
-      body: a.bodyBlocks,
+      body: enrichBody(a.bodyBlocks, a.slug),
       lastReviewed: new Date().toISOString().split('T')[0],
     };
     await client.createOrReplace(doc);
@@ -607,7 +618,7 @@ async function run() {
       section: 'funeral-plans',
       intent: a.intent,
       excerpt: a.excerpt,
-      body: a.bodyBlocks,
+      body: enrichBody(a.bodyBlocks, a.slug),
       lastReviewed: new Date().toISOString().split('T')[0],
     };
     await client.createOrReplace(doc);
@@ -626,7 +637,7 @@ async function run() {
       section: 'funeral-plans',
       intent: a.intent,
       excerpt: a.excerpt,
-      body: a.bodyBlocks,
+      body: enrichBody(a.bodyBlocks, a.slug),
       lastReviewed: new Date().toISOString().split('T')[0],
     };
     await client.createOrReplace(doc);

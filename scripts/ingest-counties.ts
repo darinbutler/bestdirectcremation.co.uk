@@ -10,6 +10,18 @@
  *   npx tsx scripts/ingest-counties.ts
  */
 import { createClient } from '@sanity/client';
+import { Linkifier } from './lib/linkify';
+
+function enrichBlocks(blocks: any[], slug: string): any[] {
+  if (!Array.isArray(blocks)) return blocks;
+  const linkifier = new Linkifier({ currentSlug: slug });
+  return blocks.map(block => {
+    if (block?.style === 'normal' && block?.children?.[0]?.text && (!block.markDefs || block.markDefs.length === 0)) {
+      return linkifier.pt(block.children[0].text);
+    }
+    return block;
+  });
+}
 
 const PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || '80kiihr6';
 const DATASET    = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production';
@@ -251,7 +263,10 @@ async function run() {
       country: c.country,
       region: c.region,
       coverageStatus: 'coming-soon' as const,
-      longFormSections: sections(c),
+      longFormSections: sections(c).map(s => ({
+        ...s,
+        body: enrichBlocks(s.body, c.slug),
+      })),
       faqs: faqs(c),
       lastReviewed: new Date().toISOString().split('T')[0],
     };

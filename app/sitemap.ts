@@ -1,9 +1,10 @@
 import type { MetadataRoute } from 'next';
 import { sanity } from '@/lib/sanity';
-import { sitemapDataQuery, allCrematoriaQuery } from '@/lib/queries';
+import { sitemapDataQuery, allCrematoriaQuery, allRegisterOfficesQuery } from '@/lib/queries';
 import { SITE } from '@/lib/site';
 import { GLOSSARY } from '@/lib/glossary';
-import { CountyCrematoriumGroup, deduplicate } from '@/lib/crematoria';
+import { CountyCrematoriumGroup, deduplicate as dedupeCrematoria } from '@/lib/crematoria';
+import { CountyRegisterOfficeGroup, deduplicate as dedupeRegisterOffices } from '@/lib/register-offices';
 
 type Row = { slug?: string; county?: string; section?: string; _updatedAt?: string };
 
@@ -32,6 +33,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: SITE.url + '/help/',             changeFrequency: 'weekly',  priority: 0.8,  lastModified: now },
     { url: SITE.url + '/glossary/',         changeFrequency: 'monthly', priority: 0.7,  lastModified: now },
     { url: SITE.url + '/crematoria/',       changeFrequency: 'monthly', priority: 0.7,  lastModified: now },
+    { url: SITE.url + '/register-offices/', changeFrequency: 'monthly', priority: 0.7,  lastModified: now },
     { url: SITE.url + '/resources/',        changeFrequency: 'monthly', priority: 0.6,  lastModified: now },
     { url: SITE.url + '/resources/what-to-do-when-someone-dies-checklist/', changeFrequency: 'yearly', priority: 0.6, lastModified: now },
     { url: SITE.url + '/resources/funeral-planning-checklist/', changeFrequency: 'yearly', priority: 0.5, lastModified: now },
@@ -89,7 +91,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // Crematorium directory — generated from Apify-enriched county docs
   const crematoriaGroups: CountyCrematoriumGroup[] = await sanity.fetch(allCrematoriaQuery);
-  const crematoriaMap = deduplicate(crematoriaGroups);
+  const crematoriaMap = dedupeCrematoria(crematoriaGroups);
   const crematoriaUrls: MetadataRoute.Sitemap = [...crematoriaMap.values()].map(c => ({
     url: `${SITE.url}/crematoria/${c.slug}/`,
     lastModified: now,
@@ -97,5 +99,15 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...baseUrls, ...countyUrls, ...townUrls, ...partnerUrls, ...articleUrls, ...genericUrls, ...glossaryUrls, ...crematoriaUrls];
+  // Register office directory — same pattern as crematoria
+  const registerOfficeGroups: CountyRegisterOfficeGroup[] = await sanity.fetch(allRegisterOfficesQuery);
+  const registerOfficeMap = dedupeRegisterOffices(registerOfficeGroups);
+  const registerOfficeUrls: MetadataRoute.Sitemap = [...registerOfficeMap.values()].map(r => ({
+    url: `${SITE.url}/register-offices/${r.slug}/`,
+    lastModified: now,
+    changeFrequency: 'monthly',
+    priority: 0.6,
+  }));
+
+  return [...baseUrls, ...countyUrls, ...townUrls, ...partnerUrls, ...articleUrls, ...genericUrls, ...glossaryUrls, ...crematoriaUrls, ...registerOfficeUrls];
 }

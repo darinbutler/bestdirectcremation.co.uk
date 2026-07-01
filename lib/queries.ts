@@ -98,6 +98,19 @@ export const allHelpArticlesQuery = groq`
   }
 `;
 
+// All register offices across all county docs — mirror of allCrematoriaQuery.
+// Apify enrichment populates the `registerOffices` field on county docs.
+export const allRegisterOfficesQuery = groq`
+  *[_type == "county" && defined(registerOffices) && count(registerOffices) > 0] {
+    "countyName": name,
+    "countySlug": slug.current,
+    "country": country,
+    registerOffices[]{
+      name, address, postcode, phone, website,
+    },
+  }
+`;
+
 // All crematoria across all county docs — for /crematoria/ hub + per-crematorium pages.
 // Crematoria are stored as inline objects on county documents (Apify enrichment fills them).
 // This query flattens the array-of-arrays and lets the page layer dedupe by name.
