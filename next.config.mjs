@@ -27,18 +27,11 @@ const nextConfig = {
   // Treat trailing slashes consistently — we link with trailing slashes throughout
   trailingSlash: true,
   async redirects() {
-    return [
-      // WordPress legacy URLs that change slug in the rebuild
-      { source: '/direct-cremations',          destination: '/direct-cremation', permanent: true },
-      { source: '/direct-cremations/',         destination: '/direct-cremation', permanent: true },
-      { source: '/help-and-guidance',          destination: '/help', permanent: true },
-      { source: '/help-and-guidance/',         destination: '/help', permanent: true },
-      { source: '/help-and-guidance/:slug*',   destination: '/help/:slug*', permanent: true },
-      { source: '/direct-cremation-providers', destination: '/providers', permanent: true },
-      { source: '/direct-cremation-providers/', destination: '/providers', permanent: true },
-      // County pages keep their slugs in the rebuild — same /[county]/ pattern
-      // Add explicit redirects here if any individual county slug changes.
-    ];
+    // All redirects live in lib/redirects.mjs (plain ESM so it can be imported
+    // here at build time without a TypeScript pass). See that file for how to
+    // add GSC top-page redirects after running scrape-wp-sitemap.ts.
+    const { allRedirects } = await import('./lib/redirects.mjs');
+    return allRedirects;
   },
   experimental: {
     // Helps the embedded Sanity Studio at /studio play nice with App Router.

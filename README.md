@@ -150,3 +150,18 @@ While we're in build mode (no production domain yet), the live preview is at `*.
 3. Visit `<preview>.vercel.app/studio`, log in, run the ingestion script to populate the 95 county stubs.
 4. Editors flip the "live" counties (Hampshire, Kent, Surrey etc.) to `live` status, reference partner FDs, write long-form sections.
 5. Once ~80% of content is migrated, point the production domain at Vercel.
+
+## Documentation
+
+- `docs/TOPLINE-SUMMARY.md` — one-page overview of what the site does
+- `docs/SANITY-EDITING-MANUAL.md` — how to edit content in Sanity Studio
+- `docs/GO-LIVE-REVIEW.md` — full team briefing pack
+- `docs/WINNING-PAGE-FORMAT-SPEC.md` — reference structure for new pages
+
+## Environment
+
+Copy `.env.local.example` → `.env.local` and fill in the tokens. See the example file for what each variable is.
+
+## Sanity Studio
+
+Deployed at `bestdirectcremation-co-uk.vercel.app/studio/`. Sign in with the account you were invited on.
