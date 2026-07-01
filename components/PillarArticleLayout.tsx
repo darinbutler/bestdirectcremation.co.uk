@@ -23,44 +23,43 @@ export default function PillarArticleLayout({ children }: { children: React.Reac
   return (
     <section className="relative bg-white overflow-hidden">
 
-      {/* Decorative "B" watermark — LEFT side */}
-      <div
+      {/* Decorative B watermark — LEFT side.
+          Sized big to genuinely fill the whitespace on wide monitors. Kept
+          at low opacity so it accentuates without competing with reading. */}
+      <img
+        src="/b-mark.jpg"
+        alt=""
         aria-hidden
+        loading="lazy"
+        decoding="async"
         className="hidden xl:block absolute pointer-events-none select-none z-0"
         style={{
-          left: '-4rem',
-          top: '6rem',
-          fontFamily: 'var(--font-literata), Georgia, serif',
-          fontStyle: 'italic',
-          fontWeight: 500,
-          fontSize: '32rem',
-          lineHeight: 1,
-          color: '#074727',
-          opacity: 0.035,
+          left: '-14rem',
+          top: '2rem',
+          width: '54rem',
+          height: 'auto',
+          opacity: 0.06,
         }}
-      >
-        B
-      </div>
+      />
 
-      {/* Decorative "B" watermark — RIGHT side, further down, subtly smaller */}
-      <div
+      {/* Decorative B watermark — RIGHT side, mirrored, further down.
+          Also uses /public/b-mark.png. */}
+      <img
+        src="/b-mark.jpg"
+        alt=""
         aria-hidden
+        loading="lazy"
+        decoding="async"
         className="hidden xl:block absolute pointer-events-none select-none z-0"
         style={{
-          right: '-3rem',
-          top: '55rem',
-          fontFamily: 'var(--font-literata), Georgia, serif',
-          fontStyle: 'italic',
-          fontWeight: 500,
-          fontSize: '26rem',
-          lineHeight: 1,
-          color: '#C5A576',
-          opacity: 0.04,
+          right: '-12rem',
+          top: '54rem',
+          width: '46rem',
+          height: 'auto',
+          opacity: 0.05,
           transform: 'scaleX(-1)',
         }}
-      >
-        B
-      </div>
+      />
 
       <Container className="relative z-10 py-12 md:py-16">
         <div className="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-10 lg:gap-14">
