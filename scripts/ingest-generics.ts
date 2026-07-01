@@ -10,6 +10,7 @@
  */
 import { createClient } from '@sanity/client';
 import { Linkifier } from './lib/linkify';
+import { GAP_PAGES } from './generics-gap-pages';
 
 function enrichBlocks(blocks: any[], slug: string): any[] {
   if (!Array.isArray(blocks)) return blocks;
@@ -862,6 +863,14 @@ const GENERICS: Generic[] = [
     faqs: standardFaqs,
   },
 ];
+
+// ============================================================
+// HIGH-PRIORITY GAP PAGES
+// ============================================================
+// Additional generic-term pages built to WINNING-PAGE-FORMAT-SPEC.md
+// covering high-volume UK search queries where competitors currently rank
+// but we don't. Full ~1,500-2,200 word cornerstones each.
+GENERICS.push(...GAP_PAGES);
 
 // ============================================================
 // INGEST
