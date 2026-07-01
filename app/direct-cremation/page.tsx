@@ -10,6 +10,7 @@ import TrustSignals from '@/components/TrustSignals';
 import WhyBdc from '@/components/WhyBdc';
 import FAQ from '@/components/FAQ';
 import CostCalculatorCTA from '@/components/CostCalculatorCTA';
+import PillarArticleLayout from '@/components/PillarArticleLayout';
 import JsonLd from '@/components/JsonLd';
 import { breadcrumbSchema, faqPageSchema, jsonLdString, serviceSchema } from '@/lib/seo';
 import { SITE } from '@/lib/site';
@@ -103,8 +104,7 @@ export default function DirectCremationPage() {
       <TrustSignals />
 
       {/* Primary editorial */}
-      <section className="bg-white">
-        <Container className="py-12 md:py-16 max-w-prose-wide">
+      <PillarArticleLayout>
           <article
             className="prose prose-lg max-w-none
                        prose-headings:font-serif prose-headings:text-green
@@ -380,8 +380,7 @@ export default function DirectCremationPage() {
             </p>
 
           </article>
-        </Container>
-      </section>
+      </PillarArticleLayout>
 
       <CostCalculatorCTA variant="card" />
 

@@ -9,6 +9,7 @@ import TrustSignals from '@/components/TrustSignals';
 import WhyBdc from '@/components/WhyBdc';
 import FAQ from '@/components/FAQ';
 import CostCalculatorCTA from '@/components/CostCalculatorCTA';
+import PillarArticleLayout from '@/components/PillarArticleLayout';
 import JsonLd from '@/components/JsonLd';
 import { sanity } from '@/lib/sanity';
 import { allCompareArticlesQuery } from '@/lib/queries';
@@ -81,8 +82,7 @@ export default async function CompareHub() {
       <TrustSignals />
 
       {/* Editorial intro */}
-      <section className="bg-white">
-        <Container className="py-12 md:py-16 max-w-prose-wide">
+      <PillarArticleLayout>
           <article
             className="prose prose-lg max-w-none
                        prose-headings:font-serif prose-headings:text-green
@@ -240,8 +240,7 @@ export default async function CompareHub() {
             </p>
 
           </article>
-        </Container>
-      </section>
+      </PillarArticleLayout>
 
       <ComparisonStrip />
 

@@ -8,6 +8,7 @@ import TrustSignals from '@/components/TrustSignals';
 import WhyBdc from '@/components/WhyBdc';
 import FAQ from '@/components/FAQ';
 import CostCalculatorCTA from '@/components/CostCalculatorCTA';
+import PillarArticleLayout from '@/components/PillarArticleLayout';
 import JsonLd from '@/components/JsonLd';
 import { sanity } from '@/lib/sanity';
 import { allCountiesForHubQuery } from '@/lib/queries';
@@ -100,8 +101,7 @@ export default async function NearMePage() {
       <TrustSignals />
 
       {/* Editorial */}
-      <section className="bg-white">
-        <Container className="py-12 md:py-16 max-w-prose-wide">
+      <PillarArticleLayout>
           <article
             className="prose prose-lg max-w-none
                        prose-headings:font-serif prose-headings:text-green
@@ -235,8 +235,7 @@ export default async function NearMePage() {
             </p>
 
           </article>
-        </Container>
-      </section>
+      </PillarArticleLayout>
 
       {/* Major cities grid */}
       <section className="bg-cream border-y border-stone">
